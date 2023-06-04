@@ -17,8 +17,9 @@ class TextFormFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: GoogleFonts.lato(),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
             color: kDarkBlueButtonsColor, // Replace with your desired color
           ),
         ),
@@ -26,11 +27,13 @@ class TextFormFieldWidget extends StatelessWidget {
           icon, // Replace with the desired icon
           color: Colors.grey, // Replace with the desired color
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
             color: kDarkBlueButtonsColor, // Replace with your desired color
           ),
         ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 17),
       ),
     );
   }

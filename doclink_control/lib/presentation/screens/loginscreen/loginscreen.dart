@@ -1,4 +1,5 @@
 import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/presentation/screens/loginscreen/registerscreen/register_screen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
 import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,12 @@ class LoginScreen extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 300),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const RegisterScreen();
+                      }));
+                    },
                     child: Text(
                       'Register',
                       style: GoogleFonts.lato(

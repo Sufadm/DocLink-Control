@@ -1,5 +1,6 @@
 import 'package:doclink_control/presentation/screens/loginscreen/loginscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -58,13 +59,17 @@ class _SplashScreenState extends State<SplashScreen>
               scale: _animation,
               child: Image.asset(
                 "asset_images/online-doctor-consultation-flat-design-logo-aplication-doctor-cartoon-for-mobile-app-free-vector-removebg-preview (1).png", // Replace with your logo image path
-                width: 200,
-                height: 200,
+                width: 220,
+                height: 220,
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'DocLink Control',
+              style: GoogleFonts.lato(
+                  fontSize: 25,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 50),
           ],
