@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:doclink_control/const/const.dart';
 import 'package:doclink_control/presentation/screens/homescreen/homescreen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
 import 'package:doclink_control/widgets/appbar_widget.dart';
@@ -18,6 +17,9 @@ class VerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return ChangeNotifierProvider<PhotoProvider>(
       create: (_) => PhotoProvider(),
       child: Scaffold(
@@ -25,19 +27,21 @@ class VerificationScreen extends StatelessWidget {
           text: 'Hello, Sufad M',
         ),
         body: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(screenWidth * 0.04),
           child: Form(
             key: _formKey,
             child: Consumer<PhotoProvider>(
               builder: (context, photoProvider, _) {
                 return ListView(
                   children: [
-                    kHeight25,
+                    SizedBox(
+                      height: screenHeight * 0.04,
+                    ),
                     photoProvider.photo?.path == null
                         ? Center(
                             child: SizedBox(
-                              height: 130,
-                              width: 130,
+                              height: screenHeight * 0.18,
+                              width: screenHeight * 0.18,
                               child: Image.network(
                                 'https://media.istockphoto.com/id/1189304032/photo/doctor-holding-digital-tablet-at-meeting-room.jpg?s=612x612&w=0&k=20&c=RtQn8w_vhzGYbflSa1B5ea9Ji70O8wHpSgGBSh0anUg=',
                                 fit: BoxFit.cover,
@@ -46,10 +50,11 @@ class VerificationScreen extends StatelessWidget {
                           )
                         : Center(
                             child: Container(
-                              height: 120,
-                              width: 120,
+                              height: screenHeight * 0.17,
+                              width: screenHeight * 0.17,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60),
+                                borderRadius:
+                                    BorderRadius.circular(screenHeight * 0.085),
                               ),
                               child: Image.file(
                                 photoProvider.photo!,
@@ -57,7 +62,9 @@ class VerificationScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                    kHeight10,
+                    SizedBox(
+                      height: screenHeight * 0.010,
+                    ),
                     Center(
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
@@ -74,34 +81,42 @@ class VerificationScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    kHeight20,
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
                     const TextFormFieldWidget(
                       hintText: 'Email',
                       icon: Icons.email,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    kHeight10,
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
                     const TextFormFieldWidget(
                       hintText: 'Phone No',
                       icon: Icons.phone,
                       keyboardType: TextInputType.number,
                     ),
-                    kHeight10,
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
                     const TextFormFieldWidget(
                       hintText: 'Password',
                       icon: Icons.lock,
                       obscureText: true,
                     ),
-                    kHeight10,
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
                     const TextFormFieldWidget(
                       hintText: 'Confirm Password',
                       icon: Icons.lock,
                       obscureText: true,
                     ),
-                    const SizedBox(
-                      height: 245,
+                    SizedBox(
+                      height: screenHeight * 0.20,
                     ),
-                    ElevatedButtons(
+                    CustomElevatedButtons(
                       text: 'Submit',
                       onPressed: () {
                         Navigator.push(context,

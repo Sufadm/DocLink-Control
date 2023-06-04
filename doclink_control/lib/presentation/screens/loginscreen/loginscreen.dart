@@ -10,39 +10,46 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(screenWidth * 0.05),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 25,
+                SizedBox(
+                  height: screenHeight * 0.03,
                 ),
                 Center(
                   child: Text(
                     'Welcome',
                     style: GoogleFonts.acme(
-                        fontSize: 25, fontWeight: FontWeight.bold),
+                      fontSize: screenHeight * 0.035,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 90,
+                SizedBox(
+                  height: screenHeight * 0.1,
                 ),
                 Text(
                   'Doctor Login',
                   style: GoogleFonts.lato(
-                      fontWeight: FontWeight.bold, fontSize: 32),
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenHeight * 0.045,
+                  ),
                 ),
                 kHeight10,
                 Text(
-                  'Hello Doctor Please Login,if you are already Register',
+                  'Hello Doctor, Please Login if you are already registered',
                   style: GoogleFonts.lato(color: Colors.grey),
                 ),
-                const SizedBox(
-                  height: 35,
+                SizedBox(
+                  height: screenHeight * 0.07,
                 ),
                 Text(
                   'Email',
@@ -50,7 +57,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 kHeight10,
                 const TextFormFieldWidget(
-                    hintText: 'Enter your Email', icon: Icons.email),
+                  hintText: 'Enter your Email',
+                  icon: Icons.email,
+                ),
                 kHeight10,
                 Text(
                   'Password',
@@ -58,24 +67,27 @@ class LoginScreen extends StatelessWidget {
                 ),
                 kHeight10,
                 const TextFormFieldWidget(
-                    hintText: 'Enter your password', icon: Icons.lock),
+                  hintText: 'Enter your password',
+                  icon: Icons.lock,
+                ),
                 Container(
-                  margin: const EdgeInsets.only(left: 250),
+                  margin: EdgeInsets.only(left: screenWidth * 0.59),
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
                       'Forgot password',
                       style: GoogleFonts.lato(
-                          decoration: TextDecoration.underline),
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ),
-                ElevatedButtons(
+                CustomElevatedButtons(
                   onPressed: () {},
                   text: 'Login',
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 300),
+                  margin: EdgeInsets.only(left: screenWidth * 0.7),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(context,
@@ -86,7 +98,8 @@ class LoginScreen extends StatelessWidget {
                     child: Text(
                       'Register',
                       style: GoogleFonts.lato(
-                          decoration: TextDecoration.underline),
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ),

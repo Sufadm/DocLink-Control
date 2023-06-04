@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../const/const.dart';
 
-class ElevatedButtons extends StatelessWidget {
+class CustomElevatedButtons extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const ElevatedButtons({
+  const CustomElevatedButtons({
     super.key,
     required this.text,
     required this.onPressed,
@@ -15,8 +15,9 @@ class ElevatedButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: 400,
+      width: screenWidth * 0.9,
       height: 45,
       child: ElevatedButton(
           style: ButtonStyle(

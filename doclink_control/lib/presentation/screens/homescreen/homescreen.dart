@@ -6,10 +6,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(screenWidth * 0.03),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -17,47 +20,53 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
-                  const Icon(Icons.notifications)
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.notifications)),
                 ],
               ),
+              kHeight20,
               Center(
                 child: Text(
                   'HELLO, Dr.Sufad M',
-                  style: kTextStyleLargeBlack,
+                  style: kTextStyleLargeBlack.copyWith(
+                      fontSize: screenWidth * 0.05),
                 ),
               ),
-              kHeight25,
+              SizedBox(height: screenHeight * 0.03),
               SearchBar(
                 hintText: 'Search your patient',
                 leading: Container(
-                  margin: const EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(left: screenWidth * 0.02),
                   child: const Icon(Icons.search),
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: screenHeight * 0.04),
               Text(
                 'Today\'s Appointments',
-                style: kTextStyleLargeBlack,
+                style: kTextStyleLargeBlack.copyWith(
+                    fontSize: screenWidth * 0.055),
               ),
-              kHeight10,
+              SizedBox(height: screenHeight * 0.01),
               Expanded(
                 child: GridView.builder(
-                  padding: const EdgeInsets.all(10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  padding: EdgeInsets.all(screenWidth * 0.01),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1.0,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: screenWidth * 0.017,
+                    mainAxisSpacing: screenHeight * 0.017,
                   ),
                   itemCount: 2, // Replace with the actual number of items
                   itemBuilder: (context, index) {
                     return Container(
                       color: greylight1,
                       child: Center(
-                          child: Text(
-                        'Patient 1',
-                        style: kTextStyleMediumBlack,
-                      )),
+                        child: Text(
+                          'Patient ${index + 1}',
+                          style: kTextStyleMediumBlack.copyWith(
+                              fontSize: screenWidth * 0.04),
+                        ),
+                      ),
                     );
                   },
                 ),

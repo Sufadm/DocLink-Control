@@ -35,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
               const SizedBox(
                 height: 395,
               ),
-              ElevatedButtons(
+              CustomElevatedButtons(
                 text: 'Next',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
