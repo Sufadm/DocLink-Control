@@ -16,31 +16,35 @@ class RegisterScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            kHeight20,
-            const TextFormFieldWidget(hintText: 'Name', icon: Icons.person),
-            kHeight10,
-            const TextFormFieldWidget(hintText: 'Gender', icon: Icons.male),
-            kHeight10,
-            const TextFormFieldWidget(
-                hintText: 'Qualifiacation', icon: Icons.school),
-            kHeight10,
-            const TextFormFieldWidget(
-                hintText: 'Categorie', icon: Icons.category),
-            kHeight10,
-            const TextFormFieldWidget(
-                hintText: 'Place', icon: Icons.location_on),
-            kHeight20,
-            ElevatedButtons(
-              text: 'Next',
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const VerificationScreen();
-                }));
-              },
-            )
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              kHeight20,
+              const TextFormFieldWidget(hintText: 'Name', icon: Icons.person),
+              kHeight10,
+              const TextFormFieldWidget(hintText: 'Gender', icon: Icons.male),
+              kHeight10,
+              const TextFormFieldWidget(
+                  hintText: 'Qualifiacation', icon: Icons.school),
+              kHeight10,
+              const TextFormFieldWidget(
+                  hintText: 'Categorie', icon: Icons.category),
+              kHeight10,
+              const TextFormFieldWidget(
+                  hintText: 'Place', icon: Icons.location_on),
+              const SizedBox(
+                height: 395,
+              ),
+              ElevatedButtons(
+                text: 'Next',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return VerificationScreen();
+                  }));
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

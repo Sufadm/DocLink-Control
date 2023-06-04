@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           style: GoogleFonts.lato(
               fontWeight: FontWeight.bold, color: Colors.black)),
       backgroundColor: Colors.white,
-      centerTitle: true,
+      //centerTitle: true,
     );
   }
 

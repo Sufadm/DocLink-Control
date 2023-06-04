@@ -5,10 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 class TextFormFieldWidget extends StatelessWidget {
   final String hintText;
   final IconData icon;
+  final TextInputType? keyboardType;
+  final bool obscureText;
   const TextFormFieldWidget({
     super.key,
     required this.hintText,
     required this.icon,
+    this.keyboardType,
+    this.obscureText = false,
   });
 
   @override
@@ -35,6 +39,8 @@ class TextFormFieldWidget extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 17),
       ),
+      keyboardType: keyboardType,
+      obscureText: obscureText,
     );
   }
 }
