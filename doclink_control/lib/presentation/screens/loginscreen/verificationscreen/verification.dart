@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doclink_control/presentation/screens/homescreen/homescreen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
 import 'package:doclink_control/service/auth.dart';
 import 'package:doclink_control/widgets/appbar_widget.dart';
@@ -82,6 +83,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           backgroundColor: Colors.black,
                         ),
                         onPressed: () {
+                          if (photoProvider.photo == null) {
+                            setState(() {
+                              error = '';
+                            });
+                            return;
+                          }
                           getPhoto(context);
                         },
                         icon: const Icon(
@@ -124,6 +131,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       hintText: 'Phone No',
                       icon: Icons.phone,
                       keyboardType: TextInputType.number,
+                      maxLength: 10,
                       onChanged: (value) {
                         setState(() {
                           phoneNumber = value;
@@ -186,6 +194,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                               error = 'Enter a Valid Email';
                               loading = false;
                             });
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const HomeScreen();
+                            }));
                           }
                         }
                       },

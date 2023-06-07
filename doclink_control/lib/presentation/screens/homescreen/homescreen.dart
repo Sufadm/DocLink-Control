@@ -1,11 +1,15 @@
 import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/service/auth.dart';
 import 'package:flutter/material.dart';
+
+import '../loginscreen/loginscreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AuthService auth = AuthService();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -71,6 +75,17 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
+              ElevatedButton(
+                  onPressed: () async {
+                    await auth.logout();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text('signout'))
             ],
           ),
         ),

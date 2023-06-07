@@ -6,6 +6,7 @@ import '../const/const.dart';
 class CustomElevatedButtons extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  // New parameter for obscuring text
 
   const CustomElevatedButtons({
     super.key,

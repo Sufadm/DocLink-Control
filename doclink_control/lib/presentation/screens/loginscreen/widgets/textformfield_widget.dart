@@ -9,6 +9,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
+  final int? maxLength;
 
   const TextFormFieldWidget({
     Key? key,
@@ -18,6 +19,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.onChanged,
+    this.maxLength,
   }) : super(key: key);
 
   @override
@@ -48,64 +50,7 @@ class TextFormFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       onChanged: onChanged,
+      maxLength: maxLength,
     );
   }
 }
-
-
-// class TextFormFieldWidget extends StatelessWidget {
-//   final String hintText;
-//   final IconData icon;
-//   final TextInputType? keyboardType;
-//   final bool obscureText;
-//   final String? Function(String?)? validator;
-//   final ValueChanged<String>? onChanged;
-
-//   const TextFormFieldWidget({
-//     super.key,
-//     required this.hintText,
-//     required this.icon,
-//     this.keyboardType,
-//     this.obscureText = false,
-//     this.validator,
-//     this.onChanged,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//       decoration: InputDecoration(
-//         hintText: hintText,
-//         hintStyle: GoogleFonts.lato(),
-        
-//         focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10.0),
-//           borderSide: const BorderSide(
-//             color: kDarkBlueButtonsColor, // Replace with your desired color
-//           ),
-//         ),
-//         errorBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10.0),
-//           borderSide: const BorderSide(
-//             color: Colors.red, // Change to your desired error border color
-//           ),
-//         ),
-//         prefixIcon: Icon(
-//           icon, // Replace with the desired icon
-//           color: Colors.grey, // Replace with the desired color
-//         ),
-//         enabledBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10.0),
-//           borderSide: const BorderSide(
-//             color: kDarkBlueButtonsColor, // Replace with your desired color
-//           ),
-//         ),
-//         contentPadding: const EdgeInsets.symmetric(vertical: 17),
-//       ),
-//       keyboardType: keyboardType,
-//       obscureText: obscureText,
-//       validator: validator,
-//       onChanged: onChanged,
-//     );
-//   }
-// }

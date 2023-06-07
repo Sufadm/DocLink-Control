@@ -1,5 +1,6 @@
 import 'package:doclink_control/models/user.dart';
 import 'package:doclink_control/presentation/screens/splashscreen/splashscreen.dart';
+import 'package:doclink_control/provider/auth_provider/auth_provider.dart';
 import 'package:doclink_control/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +12,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LoginModel(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

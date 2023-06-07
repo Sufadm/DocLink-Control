@@ -38,8 +38,9 @@ class RegisterScreen extends StatelessWidget {
               CustomElevatedButtons(
                 text: 'Next',
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return VerificationScreen();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return const VerificationScreen();
                   }));
                 },
               )
