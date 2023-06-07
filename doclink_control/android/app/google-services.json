@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "803291339961",
+    "project_id": "doclink-control",
+    "storage_bucket": "doclink-control.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803291339961:android:733d81e3edcd080c860f68",
+        "android_client_info": {
+          "package_name": "com.example.doclink_control"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803291339961-mgpasf5ou2d32tbrtnkfl7n7p8jkdmm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmt_xu8OVWeiUcCmRfR15roWxvkHwNxUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803291339961-mgpasf5ou2d32tbrtnkfl7n7p8jkdmm4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

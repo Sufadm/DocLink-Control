@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:doclink_control/presentation/screens/homescreen/homescreen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
+import 'package:doclink_control/service/auth.dart';
 import 'package:doclink_control/widgets/appbar_widget.dart';
 import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +10,22 @@ import 'package:provider/provider.dart';
 
 import '../../../../provider/photprovider/photoprovider.dart';
 
-class VerificationScreen extends StatelessWidget {
-  VerificationScreen({Key? key}) : super(key: key);
+class VerificationScreen extends StatefulWidget {
+  const VerificationScreen({Key? key}) : super(key: key);
 
+  @override
+  State<VerificationScreen> createState() => _VerificationScreenState();
+}
+
+class _VerificationScreenState extends State<VerificationScreen> {
+  final AuthService _auth = AuthService();
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
-
+  String phoneNumber = '';
+  String error = '';
+  String email = '';
+  String password = '';
+  String confirmpassword = '';
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -84,45 +95,99 @@ class VerificationScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.05,
                     ),
-                    const TextFormFieldWidget(
+                    TextFormFieldWidget(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter Email';
+                        }
+                        return null;
+                      },
                       hintText: 'Email',
                       icon: Icons.email,
                       keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
-                    const TextFormFieldWidget(
+                    TextFormFieldWidget(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter PhoneNumber';
+                        }
+                        return null;
+                      },
                       hintText: 'Phone No',
                       icon: Icons.phone,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          phoneNumber = value;
+                        });
+                      },
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
-                    const TextFormFieldWidget(
+                    TextFormFieldWidget(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter Password';
+                        }
+                        return null;
+                      },
                       hintText: 'Password',
                       icon: Icons.lock,
                       obscureText: true,
+                      onChanged: (value) {
+                        password = value;
+                      },
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
-                    const TextFormFieldWidget(
+                    TextFormFieldWidget(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter Confirm Password';
+                        }
+                        if (value != password) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
                       hintText: 'Confirm Password',
                       icon: Icons.lock,
                       obscureText: true,
+                      onChanged: (value) {
+                        setState(() {
+                          confirmpassword = value;
+                        });
+                      },
                     ),
                     SizedBox(
-                      height: screenHeight * 0.20,
+                      height: screenHeight * 0.10,
                     ),
                     CustomElevatedButtons(
                       text: 'Submit',
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const HomeScreen();
-                        }));
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
+                          dynamic result = await _auth
+                              .resgisterwithEmailAndPaswword(email, password);
+                          if (result == null) {
+                            setState(() {
+                              error = 'Enter a Valid Email';
+                              loading = false;
+                            });
+                          }
+                        }
                       },
                     ),
                   ],
