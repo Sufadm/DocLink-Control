@@ -9,19 +9,6 @@ class AuthService {
     return user != null ? UserModel(uid: user.uid) : null;
   }
 
-  //sign in anon--------------------------------
-
-  // Future signInAnonym() async {
-  //   try {
-  //     UserCredential result = await _auth.signInAnonymously();
-  //     User? user = result.user;
-  //     return user;
-  //   } catch (e) {
-  //     print(e.toString());
-  //     return null;
-  //   }
-  // }
-
   Stream<UserModel?> get userlog {
     return _auth
         .authStateChanges()
@@ -56,7 +43,6 @@ class AuthService {
   }
 
   //Logout out
-
   Future logout() async {
     try {
       return await _auth.signOut();
