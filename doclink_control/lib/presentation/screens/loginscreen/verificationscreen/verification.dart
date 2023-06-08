@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:doclink_control/presentation/screens/homescreen/homescreen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
+import 'package:doclink_control/provider/auth_provider/register_auth_provider.dart';
 import 'package:doclink_control/service/auth.dart';
 import 'package:doclink_control/widgets/appbar_widget.dart';
 import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../provider/photprovider/photoprovider.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);
@@ -20,20 +16,15 @@ class VerificationScreen extends StatefulWidget {
 
 class _VerificationScreenState extends State<VerificationScreen> {
   final AuthService _auth = AuthService();
-  bool loading = false;
   final _formKey = GlobalKey<FormState>();
-  String phoneNumber = '';
-  String error = '';
-  String email = '';
-  String password = '';
-  String confirmpassword = '';
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    return ChangeNotifierProvider<PhotoProvider>(
-      create: (_) => PhotoProvider(),
+    return ChangeNotifierProvider<RegisterModel>(
+      create: (_) => RegisterModel(),
       child: Scaffold(
         appBar: const CustomAppBar(
           text: 'Hello, Sufad M',
@@ -42,14 +33,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
           padding: EdgeInsets.all(screenWidth * 0.04),
           child: Form(
             key: _formKey,
-            child: Consumer<PhotoProvider>(
-              builder: (context, photoProvider, _) {
+            child: Consumer<RegisterModel>(
+              builder: (context, registerModel, _) {
                 return ListView(
                   children: [
                     SizedBox(
                       height: screenHeight * 0.04,
                     ),
-                    photoProvider.photo?.path == null
+                    registerModel.photo?.path == null
                         ? Center(
                             child: SizedBox(
                               height: screenHeight * 0.18,
@@ -69,7 +60,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                     BorderRadius.circular(screenHeight * 0.085),
                               ),
                               child: Image.file(
-                                photoProvider.photo!,
+                                registerModel.photo!,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -83,13 +74,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           backgroundColor: Colors.black,
                         ),
                         onPressed: () {
-                          if (photoProvider.photo == null) {
-                            setState(() {
-                              error = '';
-                            });
-                            return;
+                          if (registerModel.photo == null) {
+                            registerModel.setError('');
                           }
-                          getPhoto(context);
+                          registerModel.getPhoto(context);
                         },
                         icon: const Icon(
                           Icons.image_outlined,
@@ -112,11 +100,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       hintText: 'Email',
                       icon: Icons.email,
                       keyboardType: TextInputType.emailAddress,
-                      onChanged: (value) {
-                        setState(() {
-                          email = value;
-                        });
-                      },
+                      onChanged: registerModel.updateEmail,
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
@@ -132,11 +116,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       icon: Icons.phone,
                       keyboardType: TextInputType.number,
                       maxLength: 10,
-                      onChanged: (value) {
-                        setState(() {
-                          phoneNumber = value;
-                        });
-                      },
+                      onChanged: registerModel.phonenumber,
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
@@ -151,9 +131,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       hintText: 'Password',
                       icon: Icons.lock,
                       obscureText: true,
-                      onChanged: (value) {
-                        password = value;
-                      },
+                      onChanged: registerModel.updatePassword,
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
@@ -163,7 +141,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         if (value!.isEmpty) {
                           return 'Enter Confirm Password';
                         }
-                        if (value != password) {
+                        if (value != registerModel.password) {
                           return 'Passwords do not match';
                         }
                         return null;
@@ -171,11 +149,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       hintText: 'Confirm Password',
                       icon: Icons.lock,
                       obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          confirmpassword = value;
-                        });
-                      },
+                      onChanged: registerModel.updatePasswordagain,
                     ),
                     SizedBox(
                       height: screenHeight * 0.10,
@@ -184,16 +158,15 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       text: 'Submit',
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            loading = true;
-                          });
-                          dynamic result = await _auth
-                              .resgisterwithEmailAndPaswword(email, password);
+                          registerModel.setLoading(true);
+                          dynamic result =
+                              await _auth.resgisterwithEmailAndPaswword(
+                            registerModel.email,
+                            registerModel.password,
+                          );
                           if (result == null) {
-                            setState(() {
-                              error = 'Enter a Valid Email';
-                              loading = false;
-                            });
+                            registerModel.setError('Enter a Valid Email');
+                            registerModel.setLoading(false);
                           } else {
                             // ignore: use_build_context_synchronously
                             Navigator.pushReplacement(context,
@@ -212,16 +185,5 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> getPhoto(BuildContext context) async {
-    final photo = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (photo == null) {
-      return;
-    } else {
-      final photoTemp = File(photo.path);
-      // ignore: use_build_context_synchronously
-      Provider.of<PhotoProvider>(context, listen: false).setPhoto(photoTemp);
-    }
   }
 }
