@@ -40,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
-                    return const VerificationScreen();
+                    return VerificationScreen();
                   }));
                 },
               )

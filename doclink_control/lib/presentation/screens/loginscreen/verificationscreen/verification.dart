@@ -7,15 +7,11 @@ import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+class VerificationScreen extends StatelessWidget {
+  VerificationScreen({Key? key}) : super(key: key);
 
-  @override
-  State<VerificationScreen> createState() => _VerificationScreenState();
-}
-
-class _VerificationScreenState extends State<VerificationScreen> {
   final AuthService _auth = AuthService();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -94,6 +90,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Enter Email';
+                        }
+                        if (!isValidEmail(value)) {
+                          return 'Invalid email format';
                         }
                         return null;
                       },
@@ -185,5 +184,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ),
       ),
     );
+  }
+
+  bool isValidEmail(String email) {
+    // Use a regular expression to validate email format
+    final emailRegex = RegExp(
+        r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+    return emailRegex.hasMatch(email);
   }
 }
