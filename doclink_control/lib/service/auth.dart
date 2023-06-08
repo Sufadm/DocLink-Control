@@ -37,6 +37,11 @@ class AuthService {
       User? user = result.user;
       return _userFromCredential(user);
     } catch (e) {
+      if (e is FirebaseAuthException) {
+        if (e.code == 'Email-already-in-use') {
+          throw 'Email-already-in-use';
+        }
+      }
       print(e.toString());
       return null;
     }

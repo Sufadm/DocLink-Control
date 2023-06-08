@@ -3,7 +3,7 @@ import 'package:doclink_control/presentation/screens/homescreen/widgets/drawer_w
 import 'package:doclink_control/presentation/screens/homescreen/widgets/gridview_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'notification/notification_page.dart';
+import '../notification_details/notification_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

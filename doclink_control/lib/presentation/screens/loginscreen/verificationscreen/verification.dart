@@ -1,3 +1,4 @@
+import 'package:doclink_control/const/const.dart';
 import 'package:doclink_control/presentation/screens/homescreen/homescreen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
 import 'package:doclink_control/provider/auth_provider/register_auth_provider.dart';
@@ -5,6 +6,7 @@ import 'package:doclink_control/service/auth.dart';
 import 'package:doclink_control/widgets/appbar_widget.dart';
 import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class VerificationScreen extends StatelessWidget {
@@ -158,24 +160,55 @@ class VerificationScreen extends StatelessWidget {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           registerModel.setLoading(true);
-                          dynamic result =
-                              await _auth.resgisterwithEmailAndPaswword(
-                            registerModel.email,
-                            registerModel.password,
-                          );
-                          if (result == null) {
-                            registerModel.setError('Enter a Valid Email');
+                          try {
+                            dynamic result =
+                                await _auth.resgisterwithEmailAndPaswword(
+                              registerModel.email,
+                              registerModel.password,
+                            );
+                            if (result == null) {
+                              registerModel.setError(
+                                  'An error occurred during registration.');
+                              registerModel.setLoading(false);
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const HomeScreen();
+                              }));
+                            }
+                          } catch (error) {
+                            registerModel.setError(error.toString());
                             registerModel.setLoading(false);
-                          } else {
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const HomeScreen();
-                            }));
                           }
                         }
                       },
+
+                      // onPressed: () async {
+                      //   if (_formKey.currentState!.validate()) {
+                      //     registerModel.setLoading(true);
+                      //     dynamic result =
+                      //         await _auth.resgisterwithEmailAndPaswword(
+                      //       registerModel.email,
+                      //       registerModel.password,
+                      //     );
+                      //     if (result == null) {
+                      //       registerModel.setError('Enter a Valid Email');
+                      //       registerModel.setLoading(false);
+                      //     }  else {
+                      //       // ignore: use_build_context_synchronously
+                      //       Navigator.pushReplacement(context,
+                      //           MaterialPageRoute(builder: (context) {
+                      //         return const HomeScreen();
+                      //       }));
+                      //     }
+                      //   }
+                      // },
                     ),
+                    kHeight10,
+                    if (registerModel.error.isNotEmpty)
+                      Text(registerModel.error,
+                          style: GoogleFonts.lato(color: Colors.red)),
                   ],
                 );
               },
