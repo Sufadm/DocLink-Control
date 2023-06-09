@@ -2,7 +2,7 @@ import 'package:doclink_control/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   //create user obj based on FirebaseUser
   UserModel? _userFromCredential(User? user) {
@@ -10,7 +10,7 @@ class AuthService {
   }
 
   Stream<UserModel?> get userlog {
-    return _auth
+    return auth
         .authStateChanges()
         .map((User? user) => _userFromCredential(user));
   }
@@ -19,7 +19,7 @@ class AuthService {
 
   Future signEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
       return _userFromCredential(user);
@@ -32,7 +32,7 @@ class AuthService {
   //register with email & password
   Future resgisterwithEmailAndPaswword(String email, String password) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
       return _userFromCredential(user);
@@ -50,7 +50,7 @@ class AuthService {
   //Logout out
   Future logout() async {
     try {
-      return await _auth.signOut();
+      return await auth.signOut();
     } catch (e) {
       print(e.toString());
       return null;

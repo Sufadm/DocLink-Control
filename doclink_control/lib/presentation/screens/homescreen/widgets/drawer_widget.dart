@@ -70,7 +70,7 @@ class Drawerwidget extends StatelessWidget {
               // ignore: use_build_context_synchronously
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                MaterialPageRoute(builder: (context) => LoginScreen()),
                 (route) => false,
               );
             },

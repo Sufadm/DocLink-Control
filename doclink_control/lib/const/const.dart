@@ -1,7 +1,7 @@
-//!sizedbox height-----------------------------------
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//?Sized Box Widget========
 const kHeight10 = SizedBox(
   height: 10,
 );
@@ -20,7 +20,7 @@ const kWidth10 = SizedBox(
 const kWidth15 = SizedBox(
   width: 15,
 );
-//!color--------------------------------------------------------------
+//?color=======================================================
 const kDarkBlueButtonsColor = Color.fromARGB(255, 1, 43, 114);
 const kLightBlueColor = Color(0xFF198eb6);
 const kWhiteColor = Color.fromARGB(255, 255, 255, 255);
@@ -28,7 +28,7 @@ const kBlackColor = Color.fromARGB(255, 0, 0, 0);
 const greylight = Color(0xFFF4F4F4);
 const greylight1 = Color.fromARGB(255, 236, 234, 234);
 
-//!style googlefonts-------------------------
+//?style googlefonts===========================================
 
 final kTextStyle = GoogleFonts.lato(fontWeight: FontWeight.bold);
 
@@ -44,6 +44,3 @@ final kTextStyleMediumBlack =
     kTextStyle.copyWith(fontSize: 15.0, color: Colors.black);
 final kTextStyleMediumWhite =
     kTextStyle.copyWith(fontSize: 15.0, color: Colors.white);
-//appbar
-
-

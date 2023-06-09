@@ -31,6 +31,7 @@ class VerificationScreen extends StatelessWidget {
           padding: EdgeInsets.all(screenWidth * 0.04),
           child: Form(
             key: _formKey,
+            //?consumer builder provider-----------
             child: Consumer<RegisterModel>(
               builder: (context, registerModel, _) {
                 return ListView(
@@ -38,6 +39,8 @@ class VerificationScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.04,
                     ),
+
+                    //?image widget----------------
                     registerModel.photo?.path == null
                         ? Center(
                             child: SizedBox(
@@ -88,6 +91,8 @@ class VerificationScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.05,
                     ),
+
+                    //?textformfield---
                     TextFormFieldWidget(
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -155,6 +160,7 @@ class VerificationScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.10,
                     ),
+                    //?submit button-----
                     CustomElevatedButtons(
                       text: 'Submit',
                       onPressed: () async {
@@ -183,27 +189,6 @@ class VerificationScreen extends StatelessWidget {
                           }
                         }
                       },
-
-                      // onPressed: () async {
-                      //   if (_formKey.currentState!.validate()) {
-                      //     registerModel.setLoading(true);
-                      //     dynamic result =
-                      //         await _auth.resgisterwithEmailAndPaswword(
-                      //       registerModel.email,
-                      //       registerModel.password,
-                      //     );
-                      //     if (result == null) {
-                      //       registerModel.setError('Enter a Valid Email');
-                      //       registerModel.setLoading(false);
-                      //     }  else {
-                      //       // ignore: use_build_context_synchronously
-                      //       Navigator.pushReplacement(context,
-                      //           MaterialPageRoute(builder: (context) {
-                      //         return const HomeScreen();
-                      //       }));
-                      //     }
-                      //   }
-                      // },
                     ),
                     kHeight10,
                     if (registerModel.error.isNotEmpty)
@@ -219,6 +204,7 @@ class VerificationScreen extends StatelessWidget {
     );
   }
 
+//?email format function--
   bool isValidEmail(String email) {
     // Use a regular expression to validate email format
     final emailRegex = RegExp(

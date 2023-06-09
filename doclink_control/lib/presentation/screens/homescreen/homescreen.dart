@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //?drawer and notification widget
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -64,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                         fontSize: screenWidth * 0.055),
                   ),
                   SizedBox(height: screenHeight * 0.01),
+                  //?grid view widget--
                   GridViewWidget(
                       screenWidth: screenWidth, screenHeight: screenHeight),
                 ],
