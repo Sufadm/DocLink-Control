@@ -4,14 +4,17 @@ import '../const/const.dart';
 
 class ContainerBoxWidget extends StatelessWidget {
   final String name;
+  final VoidCallback? onTap;
   const ContainerBoxWidget({
     super.key,
     required this.name,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

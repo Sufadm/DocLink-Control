@@ -3,6 +3,7 @@ import 'package:doclink_control/presentation/screens/homescreen/widgets/drawer_w
 import 'package:doclink_control/presentation/screens/homescreen/widgets/gridview_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/textwidget.dart';
 import '../notification_details/notification_page.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -59,10 +60,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.04),
-                  Text(
-                    'Today\'s Appointments',
-                    style: kTextStyleLargeBlack.copyWith(
-                        fontSize: screenWidth * 0.055),
+                  HeadingTextWidget(
+                    screenWidth: screenWidth,
+                    text: 'Today\'s Appointments',
                   ),
                   SizedBox(height: screenHeight * 0.01),
                   //?grid view widget--

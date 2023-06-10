@@ -1,4 +1,5 @@
 import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: kDarkBlueButtonsColor,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -60,15 +63,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       // contentPadding: const EdgeInsets.symmetric(vertical: 17),
                     ),
                   ),
-                  kHeight10,
+                  kHeight15,
                   Center(
                       child: SizedBox(
-                    width: 150,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          resetPassword(context);
-                        },
-                        child: const Text('Reset Password')),
+                    height: 40,
+                    width: 135,
+                    child: CustomElevatedButtons(
+                      onPressed: () {
+                        resetPassword(context);
+                      },
+                      text: 'Reset Password',
+                    ),
                   ))
                 ]),
           ),
@@ -106,9 +111,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     }
   }
 
+//?validate email function-------------
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email is required';
+      return 'Email is Required';
     }
 
     if (!value.contains('@')) {

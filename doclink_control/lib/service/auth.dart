@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  //create user obj based on FirebaseUser
+  //?create user obj based on FirebaseUser
   UserModel? _userFromCredential(User? user) {
     return user != null ? UserModel(uid: user.uid) : null;
   }
@@ -15,7 +15,7 @@ class AuthService {
         .map((User? user) => _userFromCredential(user));
   }
 
-  //sign in with email & password
+  //?sign in with email & password
 
   Future signEmailAndPassword(String email, String password) async {
     try {
@@ -29,7 +29,7 @@ class AuthService {
     }
   }
 
-  //register with email & password
+  //?register with email & password
   Future resgisterwithEmailAndPaswword(String email, String password) async {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
@@ -47,7 +47,7 @@ class AuthService {
     }
   }
 
-  //Logout out
+  //?Logout out
   Future logout() async {
     try {
       return await auth.signOut();
