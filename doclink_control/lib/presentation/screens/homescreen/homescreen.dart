@@ -1,5 +1,5 @@
 import 'package:doclink_control/const/const.dart';
-import 'package:doclink_control/presentation/screens/homescreen/widgets/drawer_widget.dart';
+import 'package:doclink_control/presentation/screens/homescreen/drawer/drawer_widget.dart';
 import 'package:doclink_control/presentation/screens/homescreen/widgets/gridview_widget.dart';
 import 'package:flutter/material.dart';
 
