@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doclink_control/const/const.dart';
 import 'package:doclink_control/presentation/screens/homescreen/homescreen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
@@ -5,6 +8,7 @@ import 'package:doclink_control/provider/auth_provider/register_auth_provider.da
 import 'package:doclink_control/service/auth.dart';
 import 'package:doclink_control/widgets/appbar_widget.dart';
 import 'package:doclink_control/widgets/elevatedbuttonss.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +35,7 @@ class VerificationScreen extends StatelessWidget {
           padding: EdgeInsets.all(screenWidth * 0.04),
           child: Form(
             key: _formKey,
-            //?consumer builder provider-----------
+            //?consumer builder provider------------
             child: Consumer<RegisterModel>(
               builder: (context, registerModel, _) {
                 return ListView(
@@ -40,7 +44,7 @@ class VerificationScreen extends StatelessWidget {
                       height: screenHeight * 0.04,
                     ),
 
-                    //?image widget----------------
+                    //?image widget------------------
                     registerModel.photo?.path == null
                         ? Center(
                             child: SizedBox(
@@ -177,6 +181,18 @@ class VerificationScreen extends StatelessWidget {
                                   'An error occurred during registration.');
                               registerModel.setLoading(false);
                             } else {
+                              String imageUrl = '';
+                              if (registerModel.photo != null) {
+                                imageUrl = await uploadImageTostorage(
+                                    registerModel.photo!);
+                              }
+
+                              // Store the user data in Firestore
+                              await storageUserData(
+                                registerModel.email,
+                                registerModel.phoneNumber,
+                                imageUrl,
+                              );
                               // ignore: use_build_context_synchronously
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
@@ -204,11 +220,44 @@ class VerificationScreen extends StatelessWidget {
     );
   }
 
-//?email format function--
+//?email format function--------------------------------------------------------
   bool isValidEmail(String email) {
     // Use a regular expression to validate email format
     final emailRegex = RegExp(
         r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
     return emailRegex.hasMatch(email);
+  }
+
+//?add image to firestore database----------------------------------------------
+  final CollectionReference doctorCollection =
+      FirebaseFirestore.instance.collection('doctors profile');
+  Future<String> uploadImageTostorage(File imageFile) async {
+    try {
+      String filename = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('images/ $filename');
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (error) {
+      // Handle the error appropriately
+      rethrow;
+    }
+  }
+
+  Future<void> storageUserData(
+      String email, String phoneNumber, String imageUrl) async {
+    try {
+      String documentId = doctorCollection.doc().id;
+      doctorCollection.doc().id;
+      await doctorCollection.doc(documentId).set({
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'imageUrl': imageUrl,
+      });
+    } catch (error) {
+      rethrow;
+    }
   }
 }

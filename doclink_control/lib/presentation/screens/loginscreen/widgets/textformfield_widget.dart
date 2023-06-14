@@ -10,6 +10,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final int? maxLength;
+  final TextEditingController? controller;
 
   const TextFormFieldWidget({
     Key? key,
@@ -20,11 +21,13 @@ class TextFormFieldWidget extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.maxLength,
+    this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: GoogleFonts.lato(),
