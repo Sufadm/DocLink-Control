@@ -42,10 +42,10 @@ class AppointmentDetails extends StatelessWidget {
                           return const PatientProfile();
                         }))),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: ContainerBoxWidget(name: 'Patient Name 2'),
-              )
+              // const Padding(
+              //   padding: EdgeInsets.all(8.0),
+              //   child: ContainerBoxWidget(name: 'Patient Name 2'),
+              // )
             ],
           ),
         ),

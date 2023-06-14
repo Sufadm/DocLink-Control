@@ -1,4 +1,5 @@
 import 'package:doclink_control/presentation/screens/homescreen/drawer/widgets/listtile_widget.dart';
+import 'package:doclink_control/presentation/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -46,6 +47,14 @@ class Drawerwidget extends StatelessWidget {
               },
               title: 'Add Detail'),
           ListTileWidget(
+              subtitle: 'Details',
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const ProfileScreen();
+                }));
+              },
+              title: 'Profile'),
+          ListTileWidget(
               subtitle: 'Logout from device',
               onTap: () async {
                 await auth.logout();
@@ -56,7 +65,7 @@ class Drawerwidget extends StatelessWidget {
                   (route) => false,
                 );
               },
-              title: 'Logout')
+              title: 'Logout'),
         ],
       ),
     );
