@@ -1,4 +1,5 @@
 import 'package:doclink_control/presentation/screens/homescreen/drawer/widgets/listtile_widget.dart';
+import 'package:doclink_control/presentation/screens/message/messagescreen.dart';
 import 'package:doclink_control/presentation/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +38,13 @@ class Drawerwidget extends StatelessWidget {
             ),
           ),
           ListTileWidget(
-              subtitle: 'Message From Patients', onTap: () {}, title: 'Chat'),
+              subtitle: 'Message From Patients',
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const MessageScreen();
+                }));
+              },
+              title: 'Chat'),
           ListTileWidget(
               subtitle: 'Add or Update Timimg and Payment',
               onTap: () {

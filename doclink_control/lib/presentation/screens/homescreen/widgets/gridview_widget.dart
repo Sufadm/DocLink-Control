@@ -25,7 +25,7 @@ class GridViewWidget extends StatelessWidget {
             crossAxisSpacing: screenWidth * 0.017,
             mainAxisSpacing: screenHeight * 0.017,
           ),
-          itemCount: 2, // Replace with the actual number of items
+          itemCount: 4, // Replace with the actual number of items
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () =>

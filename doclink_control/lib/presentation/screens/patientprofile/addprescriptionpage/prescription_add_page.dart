@@ -38,8 +38,7 @@ class PrescriptionAddPage extends StatelessWidget {
                     hintText: 'Duration', icon: Icons.abc),
                 kHeight10,
                 TextFormField(
-                  maxLines:
-                      5, // Set maxLines to null for an unlimited number of lines
+                  maxLines: 5,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -62,7 +61,11 @@ class PrescriptionAddPage extends StatelessWidget {
                 const SizedBox(
                   height: 340,
                 ),
-                CustomElevatedButtons(text: 'Add', onPressed: () {})
+                CustomElevatedButtons(
+                    text: 'Add',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
               ],
             ),
           ),

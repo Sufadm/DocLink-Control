@@ -1,4 +1,6 @@
 import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/presentation/screens/message/chatpage/chatpage.dart';
+import 'package:doclink_control/presentation/screens/patientprofile/prescriptiondetails/prescriptiondetails.dart';
 import 'package:doclink_control/widgets/container_box_widget.dart';
 import 'package:doclink_control/widgets/elevatedbuttonss.dart';
 import 'package:doclink_control/widgets/textwidget.dart';
@@ -30,7 +32,12 @@ class PatientProfile extends StatelessWidget {
                     icon: const Icon(Icons.arrow_back),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const ChatPage();
+                      }));
+                    },
                     icon: const Icon(Icons.message),
                   ),
                 ],
@@ -59,20 +66,27 @@ class PatientProfile extends StatelessWidget {
                 ),
               ),
               SizedBox(height: screenHeight * 0.015),
-              const ContainerBoxWidget(name: 'Prescription'),
               Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomElevatedButtons(
-                    text: 'Prescribe',
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const PrescriptionAddPage();
-                      }));
-                    },
-                  ),
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => kHeight10,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return ContainerBoxWidget(
+                        onTap: () => Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const PrescriptionDetailsPage();
+                            })),
+                        name: 'Prescription ${index + 1}');
+                  },
                 ),
+              ),
+              CustomElevatedButtons(
+                text: 'Prescribe',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const PrescriptionAddPage();
+                  }));
+                },
               ),
             ],
           ),
