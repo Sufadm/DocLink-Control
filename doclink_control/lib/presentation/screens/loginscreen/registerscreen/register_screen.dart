@@ -1,8 +1,7 @@
-import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
-import 'package:doclink_control/service/firestore_service.dart';
-import 'package:doclink_control/widgets/appbar_widget.dart';
-import 'package:doclink_control/widgets/elevatedbuttonss.dart';
+import 'package:doclink_control/shared/appbar_widget.dart';
+import 'package:doclink_control/shared/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
 
 import '../verificationscreen/verification.dart';
@@ -10,11 +9,11 @@ import '../verificationscreen/verification.dart';
 class RegisterScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final name = TextEditingController();
-  final gender = TextEditingController();
-  final qualification = TextEditingController();
-  final category = TextEditingController();
-  final place = TextEditingController();
+  final namecontroller = TextEditingController();
+  final gendercontroller = TextEditingController();
+  final qualificationcontroller = TextEditingController();
+  final categorycontroller = TextEditingController();
+  final placecontroller = TextEditingController();
   RegisterScreen({Key? key}) : super(key: key);
 
   @override
@@ -28,88 +27,84 @@ class RegisterScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
-            child: Column(
-              children: [
-                kHeight20,
-                TextFormFieldWidget(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enetr your name';
-                      }
-                      return null;
-                    },
-                    controller: name,
-                    hintText: 'Name',
-                    icon: Icons.person),
-                kHeight10,
-                TextFormFieldWidget(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enetr your Gender';
-                      }
-                      return null;
-                    },
-                    controller: gender,
-                    hintText: 'Gender',
-                    icon: Icons.male),
-                kHeight10,
-                TextFormFieldWidget(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enetr your Qualifiacation';
-                      }
-                      return null;
-                    },
-                    controller: qualification,
-                    hintText: 'Qualifiacation',
-                    icon: Icons.school),
-                kHeight10,
-                TextFormFieldWidget(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enetr your Categorie';
-                      }
-                      return null;
-                    },
-                    controller: category,
-                    hintText: 'Categorie',
-                    icon: Icons.category),
-                kHeight10,
-                TextFormFieldWidget(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enetr your Place';
-                      }
-                      return null;
-                    },
-                    controller: place,
-                    hintText: 'Place',
-                    icon: Icons.location_on),
-                const SizedBox(
-                  height: 25,
-                ),
-                CustomElevatedButtons(
-                  text: 'Next',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      FirestoreService.saveDetailsToFirestore((documentId) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return VerificationScreen();
-                        }));
-                      }, (error) {
-                        print('Error saving details to Firestore: $error');
-                      },
-                          name: name.text,
-                          gender: gender.text,
-                          qualification: qualification.text,
-                          category: category.text,
-                          place: place.text);
+            child: Column(children: [
+              kHeight20,
+              TextFormFieldWidget(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
                     }
+                    return null;
                   },
-                )
-              ],
-            ),
+                  controller: namecontroller,
+                  hintText: 'Name',
+                  icon: Icons.person),
+              kHeight10,
+              TextFormFieldWidget(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your Gender';
+                    }
+                    return null;
+                  },
+                  controller: gendercontroller,
+                  hintText: 'Gender',
+                  icon: Icons.male),
+              kHeight10,
+              TextFormFieldWidget(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your Qualifiacation';
+                    }
+                    return null;
+                  },
+                  controller: qualificationcontroller,
+                  hintText: 'Qualifiacation',
+                  icon: Icons.school),
+              kHeight10,
+              TextFormFieldWidget(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your Categorie';
+                    }
+                    return null;
+                  },
+                  controller: categorycontroller,
+                  hintText: 'Categorie',
+                  icon: Icons.category),
+              kHeight10,
+              TextFormFieldWidget(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your Place';
+                    }
+                    return null;
+                  },
+                  controller: placecontroller,
+                  hintText: 'Place',
+                  icon: Icons.location_on),
+              const SizedBox(
+                height: 25,
+              ),
+              CustomElevatedButtons(
+                text: 'Next',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VerificationScreen(
+                                name: namecontroller.text,
+                                gender: gendercontroller.text,
+                                qualification: qualificationcontroller.text,
+                                categorie: categorycontroller.text,
+                                place: placecontroller.text,
+                              )),
+                    );
+                  }
+                },
+              )
+            ]),
           ),
         ),
       ),

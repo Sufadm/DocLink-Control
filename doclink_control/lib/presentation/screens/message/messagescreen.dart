@@ -1,9 +1,9 @@
 import 'package:doclink_control/presentation/screens/message/chatpage/chatpage.dart';
 import 'package:doclink_control/presentation/screens/message/widget/messagelist.dart';
-import 'package:doclink_control/widgets/appbar_widget.dart';
+import 'package:doclink_control/shared/appbar_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../const/const.dart';
+import '../../../shared/const/const.dart';
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({Key? key}) : super(key: key);

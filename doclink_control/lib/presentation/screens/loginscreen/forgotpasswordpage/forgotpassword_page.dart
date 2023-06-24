@@ -1,5 +1,5 @@
-import 'package:doclink_control/const/const.dart';
-import 'package:doclink_control/widgets/elevatedbuttonss.dart';
+import 'package:doclink_control/shared/const/const.dart';
+import 'package:doclink_control/shared/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

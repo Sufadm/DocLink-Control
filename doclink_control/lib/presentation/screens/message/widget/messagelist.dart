@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../const/const.dart';
+import '../../../../shared/const/const.dart';
 
 class MessageListDoctors extends StatelessWidget {
   final String name;

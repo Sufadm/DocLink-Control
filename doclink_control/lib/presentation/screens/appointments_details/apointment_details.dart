@@ -1,8 +1,8 @@
-import 'package:doclink_control/const/const.dart';
-import 'package:doclink_control/widgets/container_box_widget.dart';
+import 'package:doclink_control/shared/const/const.dart';
+import 'package:doclink_control/shared/container_box_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../patientprofile/patient_profile_page.dart';
+import '../profile/patientprofile/patient_profile_page.dart';
 
 class AppointmentDetails extends StatelessWidget {
   const AppointmentDetails({Key? key}) : super(key: key);

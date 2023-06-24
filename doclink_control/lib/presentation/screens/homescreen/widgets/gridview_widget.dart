@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../const/const.dart';
+import '../../../../shared/const/const.dart';
 import '../../appointments_details/apointment_details.dart';
 
 class GridViewWidget extends StatelessWidget {
@@ -23,7 +23,7 @@ class GridViewWidget extends StatelessWidget {
             crossAxisCount: 2,
             childAspectRatio: 1.0,
             crossAxisSpacing: screenWidth * 0.017,
-            mainAxisSpacing: screenHeight * 0.017,
+            mainAxisSpacing: screenHeight * 0.010,
           ),
           itemCount: 4, // Replace with the actual number of items
           itemBuilder: (context, index) {

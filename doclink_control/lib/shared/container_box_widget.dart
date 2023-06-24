@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../const/const.dart';
+import 'const/const.dart';
 
 class ContainerBoxWidget extends StatelessWidget {
   final String name;

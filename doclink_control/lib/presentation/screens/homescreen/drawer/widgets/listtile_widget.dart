@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../const/const.dart';
+import '../../../../../shared/const/const.dart';
 
 class ListTileWidget extends StatelessWidget {
   final String subtitle;

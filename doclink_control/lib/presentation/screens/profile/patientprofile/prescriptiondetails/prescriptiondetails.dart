@@ -1,5 +1,5 @@
-import 'package:doclink_control/const/const.dart';
-import 'package:doclink_control/widgets/appbar_widget.dart';
+import 'package:doclink_control/shared/const/const.dart';
+import 'package:doclink_control/shared/appbar_widget.dart';
 import 'package:flutter/material.dart';
 
 class PrescriptionDetailsPage extends StatelessWidget {

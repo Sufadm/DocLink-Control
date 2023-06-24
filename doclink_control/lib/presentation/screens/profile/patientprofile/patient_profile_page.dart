@@ -1,9 +1,9 @@
-import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/presentation/screens/message/chatpage/chatpage.dart';
-import 'package:doclink_control/presentation/screens/patientprofile/prescriptiondetails/prescriptiondetails.dart';
-import 'package:doclink_control/widgets/container_box_widget.dart';
-import 'package:doclink_control/widgets/elevatedbuttonss.dart';
-import 'package:doclink_control/widgets/textwidget.dart';
+import 'package:doclink_control/presentation/screens/profile/patientprofile/prescriptiondetails/prescriptiondetails.dart';
+import 'package:doclink_control/shared/container_box_widget.dart';
+import 'package:doclink_control/shared/elevatedbuttonss.dart';
+import 'package:doclink_control/shared/textwidget.dart';
 import 'package:flutter/material.dart';
 
 import 'addprescriptionpage/prescription_add_page.dart';

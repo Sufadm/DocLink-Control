@@ -1,18 +1,23 @@
-import 'package:doclink_control/const/const.dart';
+import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/registerscreen/register_screen.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
 import 'package:doclink_control/provider/auth_provider/auth_provider.dart';
 import 'package:doclink_control/service/auth.dart';
-import 'package:doclink_control/widgets/elevatedbuttonss.dart';
+import 'package:doclink_control/shared/elevatedbuttonss.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../homescreen/homescreen.dart';
 import 'forgotpasswordpage/forgotpassword_page.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -67,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                     style: kTextStyleLargeBlack,
                   ),
                   kHeight10,
-                  //?textformfield widget----------------------------------------
+                  //?textformfield widget---------------------------------------
                   TextFormFieldWidget(
                     validator: (val) =>
                         val!.isEmpty ? 'Please enter E mail' : null,
@@ -112,30 +117,56 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   //?loginbutton-------------------------------------------------
+
                   Consumer<LoginModel>(
-                    builder: (context, loginModel, _) => CustomElevatedButtons(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          loginModel.setLoading(true);
-                          dynamic result = await _auth.signEmailAndPassword(
-                              loginModel.email, loginModel.password);
-                          if (result == null) {
-                            loginModel.setError(
-                                'Email and password combination not found. Please register.');
-                            loginModel.setLoading(false);
-                          } else {
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()),
-                            );
-                          }
-                        }
-                      },
-                      text: 'Login',
-                    ),
+                    builder: (context, loginModel, _) => loginModel.loading
+                        ? const Center(child: CircularProgressIndicator())
+                        : CustomElevatedButtons(
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                FocusScopeNode currentfocus = FocusScope.of(
+                                    context); //?get the currnet focus node
+                                if (!currentfocus.hasPrimaryFocus) {
+                                  //?prevent Flutter from throwing an exception
+                                  currentfocus
+                                      .unfocus(); //?unfocust from current focust, so that keyboard will dismiss
+                                }
+                                loginModel.loading = true;
+                                try {
+                                  dynamic result =
+                                      await _auth.signEmailAndPassword(
+                                    loginModel.email,
+                                    loginModel.password,
+                                  );
+                                  if (result == null) {
+                                    loginModel.setError(
+                                      'Email and password combination not found. Please register.',
+                                    );
+                                    Future.delayed(const Duration(seconds: 5),
+                                        () {
+                                      loginModel.setError('');
+                                    });
+                                    loginModel.loading = false;
+                                  } else {
+                                    //? Navigate to the next screen or perform any desired action
+                                    //? after successful login
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomeScreen()),
+                                    );
+                                    loginModel.loading = false;
+                                  }
+                                } catch (error) {
+                                  loginModel.setError(error.toString());
+                                }
+                              }
+                            },
+                            text: 'Login',
+                          ),
                   ),
+
                   const SizedBox(
                     height: 5,
                   ),
