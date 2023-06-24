@@ -27,6 +27,21 @@ class FirestoreService {
     }
   }
 
+  Future<String> updateImageToStorage(String uid, File imageFile) async {
+    try {
+      String filename = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('images/$uid/$filename');
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (error) {
+      // Handle the error appropriately
+      rethrow;
+    }
+  }
+
 //?creating and storing doc details to firetore---------------------------------
 
   Future<void> createUser(ProfileModel user) async {

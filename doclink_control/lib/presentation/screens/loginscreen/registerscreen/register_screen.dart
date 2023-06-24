@@ -14,6 +14,7 @@ class RegisterScreen extends StatelessWidget {
   final qualificationcontroller = TextEditingController();
   final categorycontroller = TextEditingController();
   final placecontroller = TextEditingController();
+
   RegisterScreen({Key? key}) : super(key: key);
 
   @override
