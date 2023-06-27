@@ -1,7 +1,7 @@
 class ProfileModel {
   String? uid;
   final String name;
-  final String gender;
+  final String? gender;
   final String qualification;
   final String category;
   final String place;
@@ -14,7 +14,7 @@ class ProfileModel {
     required this.email,
     required this.phone,
     required this.name,
-    required this.gender,
+    this.gender,
     required this.qualification,
     required this.category,
     required this.place,

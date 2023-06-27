@@ -74,12 +74,21 @@ class ProfileScreen extends StatelessWidget {
                       style: GoogleFonts.lato(
                           fontSize: 17, fontWeight: FontWeight.bold),
                     ),
+                    kHeight10,
+                    Text(
+                      'Place: ${document['place']}',
+                      style: GoogleFonts.lato(
+                          fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
                     kHeight15,
                     ElevatedButton.icon(
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return EditProfile();
+                            return EditProfile(
+                              profileData: document.data()!,
+                              imageUrl: document['imageUrl'],
+                            );
                           }));
                         },
                         icon: const Icon(Icons.edit),
@@ -92,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
             const Text('Error');
           }
         }
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }

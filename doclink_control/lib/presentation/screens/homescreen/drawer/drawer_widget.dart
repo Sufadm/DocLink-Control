@@ -8,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../shared/const/const.dart';
 import '../../../../service/auth.dart';
+import '../../../add details/add_details.dart';
 import '../../loginscreen/loginscreen.dart';
-import 'adddetails/schedulingtime.dart';
 
 class Drawerwidget extends StatelessWidget {
   final AuthService auth = AuthService();
@@ -62,7 +62,7 @@ class Drawerwidget extends StatelessWidget {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return const ScheduleTime();
+                          return const AddDetailPage();
                         }));
                       },
                       title: 'Add Detail'),
@@ -82,7 +82,7 @@ class Drawerwidget extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
+                              builder: (context) => LoginScreen()),
                           (route) => false,
                         );
                       },

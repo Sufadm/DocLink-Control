@@ -10,14 +10,9 @@ import 'package:provider/provider.dart';
 import '../homescreen/homescreen.dart';
 import 'forgotpasswordpage/forgotpassword_page.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
