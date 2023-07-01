@@ -62,7 +62,7 @@ class Drawerwidget extends StatelessWidget {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return const AddDetailPage();
+                          return AddDetailPage();
                         }));
                       },
                       title: 'Add Detail'),

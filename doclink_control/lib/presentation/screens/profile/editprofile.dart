@@ -12,6 +12,7 @@ import '../loginscreen/widgets/textformfield_widget.dart';
 class EditProfile extends StatelessWidget {
   final String imageUrl;
   final Map<String, dynamic> profileData;
+  final TextEditingController genderController;
   final TextEditingController nameController;
   final TextEditingController qualificationController;
   final TextEditingController categoryController;
@@ -35,6 +36,8 @@ class EditProfile extends StatelessWidget {
             TextEditingController(text: profileData['place'] ?? ''),
         phonenumberController =
             TextEditingController(text: profileData['phone'] ?? ''),
+        genderController =
+            TextEditingController(text: profileData['gender'] ?? ''),
         super(key: key);
 
   @override
@@ -116,6 +119,18 @@ class EditProfile extends StatelessWidget {
                       ),
                       kHeight10,
                       TextFormFieldWidget(
+                        controller: genderController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Gender';
+                          }
+                          return null;
+                        },
+                        hintText: 'Gender',
+                        icon: Icons.email,
+                      ),
+                      kHeight10,
+                      TextFormFieldWidget(
                         controller: qualificationController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -190,7 +205,8 @@ class EditProfile extends StatelessWidget {
                                   .text, // Add the logic to get the place value
                               imageUrl: imageUrl,
                               email: emailController.text,
-                              phone: phonenumberController
+                              phone: phonenumberController.text,
+                              gender: genderController
                                   .text, // Add the logic to get the phone value
                             );
                             await FirestoreService().updateUser(updatedUser);
