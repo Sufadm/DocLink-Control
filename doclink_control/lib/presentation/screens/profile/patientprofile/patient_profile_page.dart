@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 import 'addprescriptionpage/prescription_add_page.dart';
 
 class PatientProfile extends StatelessWidget {
-  const PatientProfile({Key? key}) : super(key: key);
+  final String image;
+  final String name;
+  const PatientProfile({Key? key, required this.image, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +45,13 @@ class PatientProfile extends StatelessWidget {
                   ),
                 ],
               ),
-              const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://img.freepik.com/premium-vector/avatar-portrait-kid-caucasian-boy-round-frame-vector-illustration-cartoon-flat-style_551425-43.jpg'),
+              CircleAvatar(
+                backgroundImage: NetworkImage(image),
                 radius: 80,
               ),
               SizedBox(height: screenHeight * 0.02),
               Text(
-                'Sufad M',
+                name,
                 style: kTextStyleLargeBlack,
               ),
               SizedBox(height: screenHeight * 0.03),

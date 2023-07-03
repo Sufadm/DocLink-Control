@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import '../profile/patientprofile/patient_profile_page.dart';
 
 class AppointmentDetails extends StatelessWidget {
-  const AppointmentDetails({Key? key}) : super(key: key);
+  final String name;
+  final String image;
+  const AppointmentDetails({Key? key, required this.name, required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +39,13 @@ class AppointmentDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ContainerBoxWidget(
-                    name: 'Patient Name 1',
+                    name: name,
                     onTap: () => Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return const PatientProfile();
+                          return PatientProfile(
+                            image: image,
+                            name: name,
+                          );
                         }))),
               ),
             ],

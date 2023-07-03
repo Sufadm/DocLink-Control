@@ -13,20 +13,20 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final VoidCallback? ontap;
   final String? initialvalue;
-  const TextFormFieldWidget(
-      {Key? key,
-      required this.hintText,
-      required this.icon,
-      this.keyboardType,
-      this.obscureText = false,
-      this.validator,
-      this.onChanged,
-      this.maxLength,
-      this.controller,
-      this.ontap,
-      required,
-      this.initialvalue})
-      : super(key: key);
+  const TextFormFieldWidget({
+    Key? key,
+    required this.hintText,
+    required this.icon,
+    this.keyboardType,
+    this.obscureText = false,
+    this.validator,
+    this.onChanged,
+    this.maxLength,
+    this.controller,
+    this.ontap,
+    required,
+    this.initialvalue,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

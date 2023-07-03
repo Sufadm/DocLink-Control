@@ -5,6 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FirestoreAddDetailService {
   final CollectionReference adddetailCollection =
       FirebaseFirestore.instance.collection('adddetails');
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllDetailsStream(
+      String doctorId) {
+    return adddetailCollection
+        .where('uid', isEqualTo: doctorId)
+        .snapshots()
+        .map((querySnapshot) =>
+            querySnapshot as QuerySnapshot<Map<String, dynamic>>);
+  }
 
   Future<void> addDetailService(AddDetailModel user) async {
     try {
@@ -21,8 +29,7 @@ class FirestoreAddDetailService {
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailsStream() {
-    final currentUserId =
-        getCurrentUserId(); // Replace with your logic to get the currently logged-in user's ID
+    final currentUserId = getCurrentUserId();
     final profileStream = FirebaseFirestore.instance
         .collection('adddetails')
         .doc(currentUserId)

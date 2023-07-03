@@ -76,8 +76,10 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.01),
                           //?grid view widget--
                           GridViewWidget(
-                              screenWidth: screenWidth,
-                              screenHeight: screenHeight),
+                            screenWidth: screenWidth,
+                            screenHeight: screenHeight,
+                            doctorId: document['id'],
+                          ),
                         ],
                       );
                     },
