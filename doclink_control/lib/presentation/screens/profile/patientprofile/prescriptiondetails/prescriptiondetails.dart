@@ -1,9 +1,12 @@
+import 'package:doclink_control/models/prescription_add_model.dart';
 import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/shared/appbar_widget.dart';
 import 'package:flutter/material.dart';
 
 class PrescriptionDetailsPage extends StatelessWidget {
-  const PrescriptionDetailsPage({Key? key}) : super(key: key);
+  final PrescriptionModel prescription;
+  const PrescriptionDetailsPage({Key? key, required this.prescription})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class PrescriptionDetailsPage extends StatelessWidget {
           children: [
             kHeight25,
             Container(
-              height: 200,
+              height: 150,
               width: double.infinity,
               color: greylight1,
               child: Container(
@@ -27,23 +30,23 @@ class PrescriptionDetailsPage extends StatelessWidget {
                   children: [
                     kHeight25,
                     Text(
-                      'Drug: ',
-                      style: kTextStyleLargeBlack,
+                      'Drug:  ${prescription.drug}',
+                      style: kTextStyleMediumBlack,
                     ),
                     kHeight10,
                     Text(
-                      'Usage:',
-                      style: kTextStyleLargeBlack,
+                      'Usage:   ${prescription.usageDuration}',
+                      style: kTextStyleMediumBlack,
                     ),
                     kHeight10,
                     Text(
-                      'Duration:',
-                      style: kTextStyleLargeBlack,
+                      'Duration: ${prescription.duration}',
+                      style: kTextStyleMediumBlack,
                     ),
                     kHeight10,
                     Text(
-                      'Remarks:',
-                      style: kTextStyleLargeBlack,
+                      'Remarks: ${prescription.remarks}',
+                      style: kTextStyleMediumBlack,
                     ),
                   ],
                 ),

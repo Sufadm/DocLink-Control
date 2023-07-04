@@ -4,6 +4,7 @@ import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/presentation/screens/homescreen/drawer/drawer_widget.dart';
 import 'package:doclink_control/presentation/screens/homescreen/widgets/gridview_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../search/search.dart';
 import '../../../shared/textwidget.dart';
 import '../notification_details/notification_page.dart';
 
@@ -61,13 +62,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.03),
-                          SearchBar(
-                            hintText: 'Search your patient',
-                            leading: Container(
-                              margin: EdgeInsets.only(left: screenWidth * 0.02),
-                              child: const Icon(Icons.search),
-                            ),
-                          ),
+                          const SearchForm(),
                           SizedBox(height: screenHeight * 0.04),
                           HeadingTextWidget(
                             screenWidth: screenWidth,

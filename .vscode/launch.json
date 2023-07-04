@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "doclink_control",
+            "cwd": "doclink_control",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "doclink_control (profile mode)",
+            "cwd": "doclink_control",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "doclink_control (release mode)",
+            "cwd": "doclink_control",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

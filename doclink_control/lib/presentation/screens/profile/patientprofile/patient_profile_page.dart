@@ -1,3 +1,5 @@
+import 'package:doclink_control/models/prescription_add_model.dart';
+import 'package:doclink_control/service/prescription_service.dart';
 import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/presentation/screens/message/chatpage/chatpage.dart';
 import 'package:doclink_control/presentation/screens/profile/patientprofile/prescriptiondetails/prescriptiondetails.dart';
@@ -11,6 +13,7 @@ import 'addprescriptionpage/prescription_add_page.dart';
 class PatientProfile extends StatelessWidget {
   final String image;
   final String name;
+
   const PatientProfile({Key? key, required this.image, required this.name})
       : super(key: key);
 
@@ -18,6 +21,7 @@ class PatientProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -61,32 +65,51 @@ class PatientProfile extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.02),
               Container(
-                margin: EdgeInsets.only(right: screenWidth * 0.6), //
+                margin: EdgeInsets.only(right: screenWidth * 0.6),
                 child: HeadingTextWidget(
                   screenWidth: screenWidth,
                   text: 'Prescription',
                 ),
               ),
               SizedBox(height: screenHeight * 0.015),
-              Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => kHeight10,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ContainerBoxWidget(
-                        onTap: () => Navigator.push(context,
+              StreamBuilder<List<PrescriptionModel>>(
+                stream: FirestorePrescriptionService().getAllPrescriptions(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final prescriptionList = snapshot.data!;
+                    return Expanded(
+                      child: ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            kHeight10,
+                        itemCount: prescriptionList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final prescription = prescriptionList[index];
+                          return ContainerBoxWidget(
+                            onTap: () => Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return const PrescriptionDetailsPage();
+                              return PrescriptionDetailsPage(
+                                prescription: prescription,
+                              );
                             })),
-                        name: 'Prescription ${index + 1}');
-                  },
-                ),
+                            name: prescription.remarks,
+                          );
+                        },
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
               ),
               CustomElevatedButtons(
                 text: 'Prescribe',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const PrescriptionAddPage();
+                    return PrescriptionAddPage();
                   }));
                 },
               ),

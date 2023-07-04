@@ -7,8 +7,12 @@ import '../profile/patientprofile/patient_profile_page.dart';
 class AppointmentDetails extends StatelessWidget {
   final String name;
   final String image;
-  const AppointmentDetails({Key? key, required this.name, required this.image})
-      : super(key: key);
+
+  const AppointmentDetails({
+    Key? key,
+    required this.name,
+    required this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
