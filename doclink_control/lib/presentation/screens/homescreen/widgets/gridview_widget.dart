@@ -48,7 +48,7 @@ class GridViewWidget extends StatelessWidget {
                   final appointmentGroup = groupedAppointments[index];
                   final userName = appointmentGroup[0]['userName'];
                   final imageurl = appointmentGroup[0]['image'];
-                  // final userid = appointmentGroup[0]['userId'];
+                  final userid = appointmentGroup[0]['userId'];
                   final appointmentCount = appointmentGroup.length;
                   return GestureDetector(
                     onTap: () {
@@ -56,6 +56,7 @@ class GridViewWidget extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) {
                           return AppointmentDetails(
+                            userId: userid,
                             image: imageurl,
                             name: '$userName',
                             //userId: userid,

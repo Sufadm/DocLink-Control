@@ -7,14 +7,15 @@ import 'package:doclink_control/shared/container_box_widget.dart';
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
 import 'package:doclink_control/shared/textwidget.dart';
 import 'package:flutter/material.dart';
-
 import 'addprescriptionpage/prescription_add_page.dart';
 
 class PatientProfile extends StatelessWidget {
+  final String userId;
   final String image;
   final String name;
 
-  const PatientProfile({Key? key, required this.image, required this.name})
+  const PatientProfile(
+      {Key? key, required this.image, required this.name, required this.userId})
       : super(key: key);
 
   @override
@@ -73,7 +74,8 @@ class PatientProfile extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.015),
               StreamBuilder<List<PrescriptionModel>>(
-                stream: FirestorePrescriptionService().getAllPrescriptions(),
+                stream:
+                    FirestorePrescriptionService().getAllPrescriptions(userId),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final prescriptionList = snapshot.data!;
@@ -109,7 +111,9 @@ class PatientProfile extends StatelessWidget {
                 text: 'Prescribe',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return PrescriptionAddPage();
+                    return PrescriptionAddPage(
+                      userid: userId,
+                    );
                   }));
                 },
               ),

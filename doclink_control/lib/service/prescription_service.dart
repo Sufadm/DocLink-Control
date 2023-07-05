@@ -16,11 +16,23 @@ class FirestorePrescriptionService {
     }
   }
 
-  Stream<List<PrescriptionModel>> getAllPrescriptions() {
+//   Stream<List<PrescriptionModel>> getAllPrescriptions() {
+//     final prescriptionCollection =
+//         FirebaseFirestore.instance.collection('precriptions');
+//     return prescriptionCollection.snapshots().map((snapshot) => snapshot.docs
+//         .map((doc) => PrescriptionModel.fromJson(doc.data()))
+//         .toList());
+//   }
+// }
+
+  Stream<List<PrescriptionModel>> getAllPrescriptions(String userId) {
     final prescriptionCollection =
         FirebaseFirestore.instance.collection('precriptions');
-    return prescriptionCollection.snapshots().map((snapshot) => snapshot.docs
-        .map((doc) => PrescriptionModel.fromJson(doc.data()))
-        .toList());
+    return prescriptionCollection
+        .where('id', isEqualTo: userId) // Add this line to filter by user ID
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => PrescriptionModel.fromJson(doc.data()))
+            .toList());
   }
 }
