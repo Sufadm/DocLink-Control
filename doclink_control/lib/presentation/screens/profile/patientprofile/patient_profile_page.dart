@@ -7,16 +7,24 @@ import 'package:doclink_control/shared/container_box_widget.dart';
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
 import 'package:doclink_control/shared/textwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'addprescriptionpage/prescription_add_page.dart';
 
 class PatientProfile extends StatelessWidget {
   final String userId;
   final String image;
   final String name;
+  final String age;
+  final String gender;
 
-  const PatientProfile(
-      {Key? key, required this.image, required this.name, required this.userId})
-      : super(key: key);
+  const PatientProfile({
+    Key? key,
+    required this.image,
+    required this.name,
+    required this.userId,
+    required this.age,
+    required this.gender,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +67,18 @@ class PatientProfile extends StatelessWidget {
                 name,
                 style: kTextStyleLargeBlack,
               ),
-              SizedBox(height: screenHeight * 0.03),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Age: $age',
+                style: GoogleFonts.lato(color: kDarkBlueButtonsColor),
+              ),
+              Text(
+                'Gender: $gender',
+                style: GoogleFonts.lato(color: kDarkBlueButtonsColor),
+              ),
+              SizedBox(height: screenHeight * 0.02),
               const Divider(
                 thickness: 1,
                 color: Colors.black,

@@ -3,6 +3,7 @@ import 'package:doclink_control/service/prescription_service.dart';
 import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/presentation/screens/loginscreen/widgets/textformfield_widget.dart';
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PrescriptionAddPage extends StatelessWidget {
@@ -113,13 +114,14 @@ class PrescriptionAddPage extends StatelessWidget {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           final prescriptionlist = PrescriptionModel(
+                              userid: FirebaseAuth.instance.currentUser?.uid,
                               uid: userid,
                               drug: drugController.text,
                               usageDuration: usageDurationController.text,
                               duration: durationController.text,
                               remarks: remarksController.text);
                           FirestorePrescriptionService()
-                              .addprecription(prescriptionlist)
+                              .addPrescription(prescriptionlist)
                               .then((_) => Navigator.pop(context));
                         }
                       })

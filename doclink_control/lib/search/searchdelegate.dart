@@ -53,8 +53,14 @@ class CustomSearchDelegate extends SearchDelegate {
         } else if (snapshot.hasData) {
           final List<QueryDocumentSnapshot<Map<String, dynamic>>> doctors =
               snapshot.data!.docs;
-          final filteredDoctors = doctors.where((doctor) {
-            final doctorName = doctor['userName'].toString().toLowerCase();
+          // final filteredDoctors = doctors.where((doctor) {
+          //   final doctorName = doctor['userName'].toString().toLowerCase();
+          //   return doctorName.contains(query.toLowerCase());
+          // }).toList();
+          final groupedDoctors = groupDoctorsByUserName(doctors);
+          final filteredDoctors = groupedDoctors.where((doctorGroup) {
+            final doctorName =
+                doctorGroup[0]['userName'].toString().toLowerCase();
             return doctorName.contains(query.toLowerCase());
           }).toList();
 
@@ -70,7 +76,10 @@ class CustomSearchDelegate extends SearchDelegate {
           return ListView.builder(
             itemCount: filteredDoctors.length,
             itemBuilder: (context, index) {
-              final doctor = filteredDoctors[index];
+              // final doctor = filteredDoctors[index];
+              final doctorGroup = filteredDoctors[index];
+              final doctor = doctorGroup[0];
+
               return ListTile(
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(doctor['image']),
@@ -84,7 +93,9 @@ class CustomSearchDelegate extends SearchDelegate {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PatientProfile(
-                        userId: doctor['doctorId'],
+                        gender: doctor['gender'],
+                        age: doctor['age'],
+                        userId: doctor['userId'],
                         image: doctor['image'],
                         name: doctor['userName'],
                       ),
@@ -102,97 +113,22 @@ class CustomSearchDelegate extends SearchDelegate {
       },
     );
   }
+
+  List<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+      groupDoctorsByUserName(
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> doctors) {
+    final Map<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+        groupedMap = {};
+
+    for (final doctor in doctors) {
+      final doctorName = doctor['userName'];
+      if (groupedMap.containsKey(doctorName)) {
+        groupedMap[doctorName]!.add(doctor);
+      } else {
+        groupedMap[doctorName] = [doctor];
+      }
+    }
+
+    return groupedMap.values.toList();
+  }
 }
-
-
-// class CustomSearchDelegate extends SearchDelegate {
-//   Future<QuerySnapshot<Map<String, dynamic>>> _fetchusers() {
-//     return FirebaseFirestore.instance.collection('doctors').get();
-//   }
-
-//   @override
-//   List<Widget>? buildActions(BuildContext context) {
-//     return [
-//       IconButton(
-//         onPressed: () {
-//           query = '';
-//         },
-//         icon: const Icon(Icons.clear),
-//       ),
-//     ];
-//   }
-
-//   @override
-//   Widget? buildLeading(BuildContext context) {
-//     return IconButton(
-//       onPressed: () {
-//         close(context, null);
-//       },
-//       icon: const Icon(
-//         Icons.arrow_back,
-//         color: Colors.black,
-//       ),
-//     );
-//   }
-
-//   @override
-//   Widget buildResults(BuildContext context) {
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//     return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-//       future: _fetchusers(),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//         } else if (snapshot.hasData) {
-//           final List<DocumentSnapshot<Map<String, dynamic>>> doctors =
-//               snapshot.data!.docs;
-//           final filteredDoctors = doctors.where((doctor) {
-//             final doctorName = doctor['userName'].toString().toLowerCase();
-//             return doctorName.contains(query.toLowerCase());
-//           }).toList();
-//           if (filteredDoctors.isEmpty) {
-//             return Center(
-//               child: Text(
-//                 'No results found',
-//                 style: kTextStyleMediumBlack,
-//               ),
-//             );
-//           }
-
-//           return ListView.builder(
-//             itemCount: filteredDoctors.length,
-//             itemBuilder: (context, index) {
-//               final doctor = filteredDoctors[index];
-//               return ListTile(
-//                 leading: CircleAvatar(
-//                   backgroundImage: NetworkImage(doctor['image']),
-//                 ),
-//                 title: Text(
-//                   doctor['userName'].toString(),
-//                   style: kTextStyleMediumBlack,
-//                 ),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                       builder: (context) => PatientProfile(
-//                         image: doctor['image'],
-//                         name: doctor['userName'],
-//                       ),
-//                     ),
-//                   );
-//                 },
-//               );
-//             },
-//           );
-//         } else {
-//           return const Text('No users found.');
-//         }
-//         return const SizedBox.shrink();
-//       },
-//     );
-//   }
-// }
