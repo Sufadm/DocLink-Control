@@ -1,8 +1,6 @@
 import 'package:doclink_control/search/searchdelegate.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/const/const.dart';
-
 class SearchForm extends StatelessWidget {
   const SearchForm({
     super.key,
@@ -18,7 +16,6 @@ class SearchForm extends StatelessWidget {
             color: Colors.black,
           ),
           hintText: 'Search Patients',
-          hintStyle: kTextStyleMediumBlack,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 16, horizontal: 25),
           filled: true,

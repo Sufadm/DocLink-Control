@@ -22,32 +22,27 @@ class PrescriptionDetailsPage extends StatelessWidget {
             Container(
               height: 150,
               width: double.infinity,
-              color: greylight1,
+              color: kWhiteColor,
               child: Container(
                 margin: const EdgeInsets.only(left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    kHeight25,
-                    Text(
-                      'Drug:  ${prescription.drug}',
-                      style: kTextStyleMediumBlack,
-                    ),
-                    kHeight10,
-                    Text(
-                      'Usage:   ${prescription.usageDuration}',
-                      style: kTextStyleMediumBlack,
-                    ),
-                    kHeight10,
-                    Text(
-                      'Duration: ${prescription.duration}',
-                      style: kTextStyleMediumBlack,
-                    ),
-                    kHeight10,
-                    Text(
-                      'Remarks: ${prescription.remarks}',
-                      style: kTextStyleMediumBlack,
-                    ),
+                    kHeight15,
+                    Text('Drug:  ${prescription.drug}',
+                        style: const TextStyle(color: kBlackColor)),
+                    const Divider(),
+                    //kHeight10,
+                    Text('Usage:   ${prescription.usageDuration}',
+                        style: const TextStyle(color: kBlackColor)),
+                    const Divider(),
+                    //kHeight10,
+                    Text('Duration: ${prescription.duration}',
+                        style: const TextStyle(color: kBlackColor)),
+                    const Divider(),
+                    // kHeight10,
+                    Text('Remarks: ${prescription.remarks}',
+                        style: const TextStyle(color: kBlackColor)),
                   ],
                 ),
               ),

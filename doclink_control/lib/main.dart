@@ -4,6 +4,7 @@ import 'package:doclink_control/provider/auth_provider/auth_provider.dart';
 import 'package:doclink_control/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -36,6 +37,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'DocLink Control',
         theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            color: Color.fromARGB(255, 222, 227, 255),
+          ),
+          fontFamily: GoogleFonts.outfit().fontFamily,
+          scaffoldBackgroundColor: const Color.fromARGB(255, 222, 227, 255),
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.deepPurple,
           ),

@@ -77,15 +77,18 @@ class GridViewWidget extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      color: Colors.grey[200],
+                      color: Colors.white,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
-                            child: Text(userName, style: GoogleFonts.lato()),
+                            child: Text(userName, style: GoogleFonts.outfit()),
                           ),
                           const SizedBox(height: 10),
-                          Text('Appointment $appointmentCount')
+                          Text(
+                            'Appointment $appointmentCount',
+                            style: GoogleFonts.outfit(),
+                          )
                         ],
                       ),
                     ),

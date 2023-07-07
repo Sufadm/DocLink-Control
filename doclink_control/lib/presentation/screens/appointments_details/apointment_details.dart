@@ -35,7 +35,6 @@ class AppointmentDetails extends StatelessWidget {
                 },
                 icon: const Icon(Icons.arrow_back),
               ),
-              kHeight20,
               Center(
                 child: Text(
                   'Appointments',
