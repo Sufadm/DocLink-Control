@@ -111,14 +111,38 @@ class PatientProfile extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           final PrescriptionModel prescription =
                               prescriptionList[index];
-                          return ContainerBoxWidget(
-                            onTap: () => Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return PrescriptionDetailsPage(
-                                prescription: prescription,
-                              );
-                            })),
-                            name: prescription.remarks,
+                          return Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(left: 15),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      prescription.date,
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    kWidth10,
+                                    const Expanded(
+                                      child: Divider(
+                                        endIndent: 20,
+                                        thickness: 0.4,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ContainerBoxWidget(
+                                onTap: () => Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return PrescriptionDetailsPage(
+                                    prescription: prescription,
+                                  );
+                                })),
+                                name: prescription.remarks,
+                              ),
+                            ],
                           );
                         },
                       );

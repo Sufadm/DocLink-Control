@@ -28,7 +28,25 @@ class FirestoreAddDetailService {
     }
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailsStream() {
+  Future<void> deleteDetail(String detailId) async {
+    try {
+      await adddetailCollection.doc(detailId).delete();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateDetail(
+      String detailId, Map<String, dynamic> updatedData) async {
+    try {
+      await adddetailCollection.doc(detailId).update(updatedData);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailsStream(
+      String doctorId) {
     final currentUserId = getCurrentUserId();
     final profileStream = FirebaseFirestore.instance
         .collection('adddetails')

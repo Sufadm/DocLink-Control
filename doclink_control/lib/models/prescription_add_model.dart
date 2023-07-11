@@ -3,11 +3,14 @@ class PrescriptionModel {
   final String drug;
   final String usageDuration;
   final String duration;
+  final String date;
   final String remarks;
   final String? userid;
+
   PrescriptionModel(
       {this.uid,
       this.userid,
+      required this.date,
       required this.drug,
       required this.usageDuration,
       required this.duration,
@@ -15,6 +18,7 @@ class PrescriptionModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'date': date,
       'id': uid,
       'drug': drug,
       'usageuDration': usageDuration,
@@ -26,6 +30,7 @@ class PrescriptionModel {
 
   static PrescriptionModel fromJson(Map<String, dynamic> json) =>
       PrescriptionModel(
+        date: json['date'],
         uid: json['id'],
         drug: json['drug'],
         usageDuration: json['usageuDration'],

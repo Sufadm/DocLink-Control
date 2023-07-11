@@ -1,14 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doclink_control/shared/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
-import '../../appointments_details/apointment_details.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../appointments_details/apointment_details.dart';
 
-class GridViewWidget extends StatelessWidget {
+class GridviewWidgetOtherAppointmentsPage extends StatelessWidget {
   final String doctorId;
-  const GridViewWidget({
+  const GridviewWidgetOtherAppointmentsPage({
     Key? key,
     required this.screenWidth,
     required this.screenHeight,
@@ -20,14 +19,11 @@ class GridViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appointmentDate = AppointmentDateProvider().getDate();
-    final formattedDate = DateFormat('MMMM d').format(appointmentDate!);
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('doctors')
             .where('doctorId', isEqualTo: doctorId)
-            .where('appointmentDate', isEqualTo: formattedDate)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -58,7 +54,6 @@ class GridViewWidget extends StatelessWidget {
                   final userid = appointmentGroup[0]['userId'];
                   final age = appointmentGroup[0]['age'];
                   final gender = appointmentGroup[0]['gender'];
-
                   final appointmentCount = appointmentGroup.length;
                   return GestureDetector(
                     onTap: () {
@@ -95,11 +90,12 @@ class GridViewWidget extends StatelessWidget {
                           Center(
                             child: Text(userName, style: GoogleFonts.outfit()),
                           ),
+                          //  const SizedBox(height: 10),
                           kHeight10,
                           Text(
                             'Appointment $appointmentCount',
                             style: GoogleFonts.outfit(),
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -131,20 +127,5 @@ class GridViewWidget extends StatelessWidget {
       }
     }
     return groupedMap.values.toList();
-  }
-}
-
-class AppointmentDateProvider with ChangeNotifier {
-  DateTime _selectedDate = DateTime.now();
-
-  DateTime get selectedDate => _selectedDate;
-
-  void setDate(DateTime date) {
-    _selectedDate = date;
-    notifyListeners();
-  }
-
-  DateTime? getDate() {
-    return selectedDate;
   }
 }

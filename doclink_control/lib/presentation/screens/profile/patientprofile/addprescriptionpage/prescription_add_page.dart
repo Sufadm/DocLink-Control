@@ -5,6 +5,7 @@ import 'package:doclink_control/presentation/screens/loginscreen/widgets/textfor
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PrescriptionAddPage extends StatelessWidget {
   final String userid;
@@ -21,6 +22,9 @@ class PrescriptionAddPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentDate = DateTime.now();
+    final formattedDate = DateFormat('MMMM d').format(currentDate);
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -114,6 +118,7 @@ class PrescriptionAddPage extends StatelessWidget {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           final prescriptionlist = PrescriptionModel(
+                              date: formattedDate,
                               userid: FirebaseAuth.instance.currentUser?.uid,
                               uid: userid,
                               drug: drugController.text,
