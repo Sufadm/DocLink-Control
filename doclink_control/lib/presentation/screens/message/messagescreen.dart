@@ -1,4 +1,3 @@
-import 'package:doclink_control/presentation/screens/message/chatpage/chatpage.dart';
 import 'package:doclink_control/presentation/screens/message/widget/messagelist.dart';
 import 'package:doclink_control/shared/appbar_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,22 +26,10 @@ class MessageScreen extends StatelessWidget {
                 style: kTextStyleLargeBlack,
               ),
               kHeight15,
-              Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(height: 10),
-                  itemCount: 5, // Replace with the actual item count
-                  itemBuilder: (BuildContext context, int index) {
-                    return MessageListDoctors(
-                      ontap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const ChatPage();
-                      })),
-                      name: 'Patient Name ${index + 1}',
-                    ); // Replace with your widget that represents a message
-                  },
-                ),
-              ),
+              const MessageListDoctors(
+
+                  // Replace with your widget that represents a message
+                  ),
             ],
           ),
         ),

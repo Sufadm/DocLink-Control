@@ -3,20 +3,6 @@ import 'package:doclink_control/models/prescription_add_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestorePrescriptionService {
-  // Future<void> addprecription(PrescriptionModel user) async {
-  //   try {
-  //     final prescriptionCollection =
-  //         FirebaseFirestore.instance.collection('precriptions').doc(user.uid);
-  //     user.uid = prescriptionCollection.id;
-  //     final json = user.toJson();
-  //     await prescriptionCollection.set(json);
-  //   } catch (error) {
-  //     // Error occurred while creating user
-  //     // print('Error creating user: $error');
-  //     rethrow;
-  //   }
-  // }
-
   Future<void> addPrescription(PrescriptionModel prescription) async {
     try {
       final prescriptionCollection =

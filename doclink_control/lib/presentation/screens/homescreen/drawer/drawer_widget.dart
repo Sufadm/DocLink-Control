@@ -79,6 +79,7 @@ class Drawerwidget extends StatelessWidget {
                       subtitle: 'Logout from device',
                       onTap: () async {
                         await auth.logout();
+                        // ignore: use_build_context_synchronously
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
