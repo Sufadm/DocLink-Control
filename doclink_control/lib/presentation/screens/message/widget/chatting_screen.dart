@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../models/chat_moddel.dart';
 import '../../../../service/chat_service.dart';
 import '../../../../shared/const/const.dart';
 
@@ -12,12 +13,14 @@ class ChattingScreen extends StatelessWidget {
   final String image;
   final String name;
   final String gender;
+  final String userid;
 
   ChattingScreen({
     Key? key,
     required this.image,
     required this.name,
     required this.gender,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -57,18 +60,27 @@ class ChattingScreen extends StatelessWidget {
           children: [
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: ChatService().getMessages(),
+                stream: FirebaseFirestore.instance
+                    .collection('doctorsprofile')
+                    .doc(currentuserid)
+                    .collection('chats')
+                    .doc(userid)
+                    .collection('messages')
+                    .orderBy('time', descending: true)
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    final messages = snapshot.data!.docs;
+                    final messages = snapshot.data!.docs
+                        .map((doc) => ChatMessage.fromSnapshot(doc))
+                        .toList();
                     return ListView.builder(
                       reverse: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
-                        final reversedIndex = messages.length - 1 - index;
-                        final message = messages[reversedIndex];
-                        final uid = message['doctorId'];
-                        final time = message['time'].toDate();
+                        // final reversedIndex = messages.length - 1 - index;
+                        final message = messages[index];
+                        // final uid = message['doctorId'];
+                        // final time = message['time'].toDate();
 
                         return Container(
                           padding: const EdgeInsets.symmetric(
@@ -80,9 +92,9 @@ class ChattingScreen extends StatelessWidget {
                             vertical: 5,
                           ),
                           child: Row(
-                            mainAxisAlignment: uid == currentuserid
-                                ? MainAxisAlignment.start
-                                : MainAxisAlignment.end,
+                            mainAxisAlignment: message.senderId == currentuserid
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
                             children: [
                               Container(
                                 padding: const EdgeInsets.symmetric(
@@ -93,18 +105,19 @@ class ChattingScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: const Radius.circular(20),
                                     topRight: const Radius.circular(20),
-                                    bottomRight: Radius.circular(uid ==
-                                            FirebaseAuth
-                                                .instance.currentUser!.uid
-                                        ? 0
-                                        : 20),
-                                    topLeft: Radius.circular(uid ==
+                                    bottomRight: Radius.circular(
+                                        message.senderId ==
+                                                FirebaseAuth
+                                                    .instance.currentUser!.uid
+                                            ? 0
+                                            : 20),
+                                    topLeft: Radius.circular(message.senderId ==
                                             FirebaseAuth
                                                 .instance.currentUser!.uid
                                         ? 20
                                         : 0),
                                   ),
-                                  color: uid == currentuserid
+                                  color: message.senderId == currentuserid
                                       ? Colors.grey.shade800
                                       : const Color.fromARGB(255, 78, 77, 77)
                                           .withOpacity(0.6),
@@ -117,14 +130,20 @@ class ChattingScreen extends StatelessWidget {
                                     Container(
                                       margin: const EdgeInsets.only(right: 30),
                                       child: Text(
-                                        message['text'],
+                                        message.textMessage,
                                         style: GoogleFonts.outfit(
                                           color: kWhiteColor,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(height: 4),
-                                    giveTime(time),
+                                    Text(
+                                      DateFormat.jm()
+                                          .format((message.time.toDate()))
+                                          .toString(),
+                                      style: GoogleFonts.lato(
+                                          fontSize: 10, color: Colors.grey),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -169,7 +188,10 @@ class ChattingScreen extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      sendMessage();
+                      // sendMessage();
+                      ChatService().sendTextMessage(
+                          currentuserid, userid, chatController.text.trim());
+                      chatController.clear();
                     },
                     icon: const Icon(
                       Icons.send,
@@ -196,16 +218,16 @@ class ChattingScreen extends StatelessWidget {
     );
   }
 
-  void sendMessage() {
-    String messageText = chatController.text.trim();
-    if (messageText.isNotEmpty) {
-      ChatService().addMessage(
-        messageText,
-        FirebaseAuth
-            .instance.currentUser!.uid, // Replace with the actual user ID
-        DateTime.now(),
-      );
-      chatController.clear();
-    }
-  }
+  // void sendMessage() {
+  //   String messageText = chatController.text.trim();
+  //   if (messageText.isNotEmpty) {
+  //     ChatService().addMessage(
+  //       messageText,
+  //       FirebaseAuth
+  //           .instance.currentUser!.uid, // Replace with the actual user ID
+  //       DateTime.now(),
+  //     );
+  //     chatController.clear();
+  //   }
+  // }
 }

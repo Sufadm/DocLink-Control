@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doclink_control/presentation/screens/message/widget/chatting_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +14,10 @@ class MessageListDoctors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      stream: FirebaseFirestore.instance.collection('doctors').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('doctors')
+          .where('doctorId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
       builder: (BuildContext context,
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
@@ -29,6 +33,7 @@ class MessageListDoctors extends StatelessWidget {
                 final name = document['userName'] as String;
                 final image = document['image'] as String;
                 final gender = document['gender'] as String;
+                final userId = document['userId'] as String;
 
                 if (uniqueDoctorIds.contains(doctorId)) {
                   return const SizedBox.shrink();
@@ -41,6 +46,7 @@ class MessageListDoctors extends StatelessWidget {
                     onTap: () => Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return ChattingScreen(
+                        userid: userId,
                         gender: gender,
                         name: name,
                         image: image,
