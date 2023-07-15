@@ -1,7 +1,7 @@
 import 'package:doclink_control/models/prescription_add_model.dart';
+import 'package:doclink_control/presentation/screens/message/widget/chatting_screen.dart';
 import 'package:doclink_control/service/prescription_service.dart';
 import 'package:doclink_control/shared/const/const.dart';
-import 'package:doclink_control/presentation/screens/message/chatpage/chatpage.dart';
 import 'package:doclink_control/presentation/screens/profile/patientprofile/prescriptiondetails/prescriptiondetails.dart';
 import 'package:doclink_control/shared/container_box_widget.dart';
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
@@ -53,7 +53,12 @@ class PatientProfile extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const ChatPage();
+                        return ChattingScreen(
+                          gender: gender,
+                          image: image,
+                          name: name,
+                          userid: userId,
+                        );
                       }));
                     },
                     icon: const Icon(Icons.message),

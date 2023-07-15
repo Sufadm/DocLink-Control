@@ -3,6 +3,7 @@ import 'package:doclink_control/service/firestore_service.dart';
 import 'package:doclink_control/shared/const/const.dart';
 import 'package:doclink_control/shared/appbar_widget.dart';
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -178,43 +179,58 @@ class EditProfile extends StatelessWidget {
                         icon: Icons.place,
                       ),
                       kHeight25,
-                      CustomElevatedButtons(
-                        text: 'Save',
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final editProfileProvider =
-                                Provider.of<EditProfileProvider>(context,
-                                    listen: false);
+                      Consumer<EditProfileProvider>(
+                        builder: (context, value, child) {
+                          return value.loading
+                              ? const Center(child: CircularProgressIndicator())
+                              : CustomElevatedButtons(
+                                  text: 'Save',
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      value.loading = true;
+                                      final editProfileProvider =
+                                          Provider.of<EditProfileProvider>(
+                                              context,
+                                              listen: false);
 
-                            // Upload image if a new image is selected
-                            String imageUrl = '';
-                            if (editProfileProvider.photo != null) {
-                              imageUrl = await FirestoreService()
-                                  .uploadImageToStorage(
-                                      editProfileProvider.photo!);
-                              editProfileProvider.photo;
-                            }
+                                      // Upload image if a new image is selected
+                                      String imageUrl = '';
+                                      if (editProfileProvider.photo != null) {
+                                        imageUrl = await FirestoreService()
+                                            .uploadImageToStorage(
+                                                editProfileProvider.photo!);
+                                        editProfileProvider.photo;
+                                      }
+                                      final fcmToken = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                      // Update user data
+                                      ProfileModel updatedUser = ProfileModel(
+                                        fcmToken: fcmToken!,
+                                        uid: FirestoreService()
+                                            .getCurrentUserId(),
+                                        name: nameController.text,
+                                        qualification:
+                                            qualificationController.text,
+                                        category: categoryController.text,
+                                        place: placeController
+                                            .text, // Add the logic to get the place value
+                                        imageUrl: imageUrl,
+                                        email: emailController.text,
+                                        phone: phonenumberController.text,
+                                        gender: genderController
+                                            .text, // Add the logic to get the phone value
+                                      );
+                                      await FirestoreService()
+                                          .updateUser(updatedUser);
 
-                            // Update user data
-                            ProfileModel updatedUser = ProfileModel(
-                              uid: FirestoreService().getCurrentUserId(),
-                              name: nameController.text,
-                              qualification: qualificationController.text,
-                              category: categoryController.text,
-                              place: placeController
-                                  .text, // Add the logic to get the place value
-                              imageUrl: imageUrl,
-                              email: emailController.text,
-                              phone: phonenumberController.text,
-                              gender: genderController
-                                  .text, // Add the logic to get the phone value
-                            );
-                            await FirestoreService().updateUser(updatedUser);
-
-                            Navigator.pop(context);
-                          }
+                                      Navigator.pop(context);
+                                      value.loading = false;
+                                    }
+                                  },
+                                );
                         },
-                      ),
+                      )
                     ],
                   ),
                 );

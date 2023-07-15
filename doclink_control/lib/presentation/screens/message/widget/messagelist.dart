@@ -3,8 +3,10 @@ import 'package:doclink_control/presentation/screens/message/widget/chatting_scr
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../shared/const/const.dart';
+import '../../homescreen/widgets/gridview_widget.dart';
 
 class MessageListDoctors extends StatelessWidget {
   const MessageListDoctors({
@@ -13,32 +15,50 @@ class MessageListDoctors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+    final appointmentDate = AppointmentDateProvider().getDate();
+    final formattedDate = DateFormat('MMMM d').format(appointmentDate!);
+    return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('doctors')
           .where('doctorId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('appointmentDate', isEqualTo: formattedDate)
           .snapshots(),
-      builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
           final documents = snapshot.data!.docs;
-          final uniqueDoctorIds = <String>{};
+          // final uniqueDoctorIds = <String>{};
+          if (documents.isEmpty) {
+            return const Text(
+              'No Messages/',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: kDarkBlueButtonsColor),
+            );
+          }
+
+          final groupedAppointments = groupedMessageByUser(documents);
 
           return Expanded(
-            child: ListView.builder(
-              itemCount: documents.length,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 7,
+              ),
+              itemCount: groupedAppointments.length,
               itemBuilder: (context, index) {
-                final document = documents[index].data();
-                final doctorId = document['doctorId'] as String;
-                final name = document['userName'] as String;
-                final image = document['image'] as String;
-                final gender = document['gender'] as String;
-                final userId = document['userId'] as String;
+                final appointmentGroup = groupedAppointments[index];
 
-                if (uniqueDoctorIds.contains(doctorId)) {
-                  return const SizedBox.shrink();
-                }
-                uniqueDoctorIds.add(doctorId);
+                // final document = documents[index].data();
+                // final doctorId = appointmentGroup[0]['doctorId'];
+                final name = appointmentGroup[0]['userName'];
+                final image = appointmentGroup[0]['image'];
+                final gender = appointmentGroup[0]['gender'];
+                final userId = appointmentGroup[0]['userId'];
+                // final appointmentCount = appointmentGroup.length;
+                // if (uniqueDoctorIds.contains(doctorId)) {
+                //   return const SizedBox.shrink();
+                // }
+                // uniqueDoctorIds.add(doctorId);
 
                 return Container(
                   color: kWhiteColor,
@@ -77,76 +97,18 @@ class MessageListDoctors extends StatelessWidget {
       },
     );
   }
+
+  List<List<QueryDocumentSnapshot>> groupedMessageByUser(
+      List<QueryDocumentSnapshot> appointments) {
+    final Map<String, List<QueryDocumentSnapshot>> groupedMap = {};
+    for (final appointment in appointments) {
+      final userId = appointment['userName'];
+      if (groupedMap.containsKey(userId)) {
+        groupedMap[userId]!.add(appointment);
+      } else {
+        groupedMap[userId] = [appointment];
+      }
+    }
+    return groupedMap.values.toList();
+  }
 }
-
-// class MessageListDoctors extends StatelessWidget {
-//   final VoidCallback? ontap;
-//   const MessageListDoctors({
-//     super.key,
-//     this.ontap,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<QuerySnapshot>(
-//       stream: FirebaseFirestore.instance.collection('doctors').snapshots(),
-//       builder: (context, snapshot) {
-//         if (snapshot.hasData) {
-//           final doctors = snapshot.data!.docs;
-
-//           return Expanded(
-//             child: ListView.builder(
-//               itemCount: doctors.length,
-//               itemBuilder: (context, index) {
-//                 final doctor = doctors[index];
-//                 final name = doctor[
-//                     'userName']; // Replace 'name' with the actual field name in your document
-
-//                 return GestureDetector(
-//                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context){
-//                     return ChattingScreen(image: image, name: name, categorie: categorie)
-//                   })),
-//                   child: Container(
-//                     height: 100,
-//                     width: double.infinity,
-//                     color: greylight1,
-//                     child: Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: Column(
-//                         children: [
-//                           Row(
-//                             children: [
-//                               const CircleAvatar(
-//                                 radius: 10,
-//                               ),
-//                               const SizedBox(
-//                                 width: 40,
-//                               ),
-//                               Container(
-//                                 margin:
-//                                     const EdgeInsets.only(bottom: 10, top: 10),
-//                                 child: Column(
-//                                   children: [
-//                                     Text(
-//                                       name,
-//                                       style: kTextStyleLargeBlack,
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 );
-//               },
-//             ),
-//           );
-//         }
-//         return const SizedBox.shrink();
-//       },
-//     );
-//   }
-// }

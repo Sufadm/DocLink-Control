@@ -8,7 +8,15 @@ class EditProfileProvider extends ChangeNotifier {
   File? get photo => _photo;
   String photoUrl = '';
   String error = '';
-  bool loading = false;
+  bool _loading = false;
+
+  bool get loading => _loading;
+
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
   void setError(String message) {
     error = message;
     notifyListeners();

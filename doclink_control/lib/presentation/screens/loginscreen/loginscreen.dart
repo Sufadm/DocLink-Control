@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                     hintText: 'Enter your password',
                     icon: Icons.lock,
                   ),
-                  //?forgot password--------------------------------
+                  //?forgot password--------------------------------------------
                   Container(
                     margin: EdgeInsets.only(left: screenWidth * 0.59),
                     child: TextButton(

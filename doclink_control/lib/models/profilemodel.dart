@@ -8,8 +8,10 @@ class ProfileModel {
   final String imageUrl;
   final String email;
   final String phone;
+  final String fcmToken;
   ProfileModel({
     this.uid,
+    required this.fcmToken,
     required this.imageUrl,
     required this.email,
     required this.phone,
@@ -22,6 +24,7 @@ class ProfileModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'fcmToken': fcmToken,
       'id': uid,
       'name': name,
       'gender': gender,
@@ -35,6 +38,7 @@ class ProfileModel {
   }
 
   static ProfileModel fromJson(Map<String, dynamic> json) => ProfileModel(
+      fcmToken: json['fcmToken'],
       uid: json['id'],
       name: json['name'],
       category: json['category'],

@@ -7,6 +7,7 @@ import 'package:doclink_control/service/auth.dart';
 import 'package:doclink_control/service/firestore_service.dart';
 import 'package:doclink_control/shared/appbar_widget.dart';
 import 'package:doclink_control/shared/elevatedbuttonss.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -208,7 +209,13 @@ class VerificationScreen extends StatelessWidget {
                                           .uploadImageToStorage(
                                               registerModel.photo!);
                                     }
+                                    final fcmToken = await FirebaseMessaging
+                                        .instance
+                                        .getToken();
+
                                     final user = ProfileModel(
+                                        fcmToken: fcmToken!,
+                                        //  fcmToken: fcmToken!,
                                         uid: _auth.auth.currentUser!.uid,
                                         imageUrl: imageUrl,
                                         email: registerModel.email,

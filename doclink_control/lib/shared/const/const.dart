@@ -24,6 +24,7 @@ const kWidth15 = SizedBox(
   width: 15,
 );
 //?color=======================================================
+final kOutfit = GoogleFonts.outfit(color: Colors.white);
 const kDarkBlueButtonsColor = Color.fromARGB(255, 1, 43, 114);
 const kLightBlueColor = Color(0xFF198eb6);
 const kWhiteColor = Color.fromARGB(255, 255, 255, 255);

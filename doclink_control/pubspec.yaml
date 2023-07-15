@@ -29,16 +29,20 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cloud_firestore: ^4.8.0
+  collection: ^1.17.1
   cupertino_icons: ^1.0.2
   date_picker_timeline: ^1.2.5
   firebase_auth: ^4.6.2
   firebase_core: ^2.13.1
+  firebase_messaging: ^14.6.4
   firebase_storage: ^11.2.3
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^15.1.0+1
   flutter_spinkit: ^5.2.0
   google_fonts: ^4.0.4
   google_sign_in: ^6.1.4
+  http: ^1.1.0
   image_picker: ^0.8.7+5
   intl: ^0.18.1
   lottie: ^2.4.0

@@ -17,19 +17,13 @@ class MessageScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SearchBar(
-                hintText: 'Search a patient',
-              ),
               kHeight15,
               Text(
                 'Messages',
                 style: kTextStyleLargeBlack,
               ),
               kHeight15,
-              const MessageListDoctors(
-
-                  // Replace with your widget that represents a message
-                  ),
+              const MessageListDoctors(),
             ],
           ),
         ),
