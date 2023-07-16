@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doclink_control/presentation/screens/message/widget/chatting_screen.dart';
+import 'package:doclink_control/presentation/screens/message/chatting_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,18 +47,10 @@ class MessageListDoctors extends StatelessWidget {
               itemCount: groupedAppointments.length,
               itemBuilder: (context, index) {
                 final appointmentGroup = groupedAppointments[index];
-
-                // final document = documents[index].data();
-                // final doctorId = appointmentGroup[0]['doctorId'];
                 final name = appointmentGroup[0]['userName'];
                 final image = appointmentGroup[0]['image'];
                 final gender = appointmentGroup[0]['gender'];
                 final userId = appointmentGroup[0]['userId'];
-                // final appointmentCount = appointmentGroup.length;
-                // if (uniqueDoctorIds.contains(doctorId)) {
-                //   return const SizedBox.shrink();
-                // }
-                // uniqueDoctorIds.add(doctorId);
 
                 return Container(
                   color: kWhiteColor,

@@ -173,8 +173,8 @@ class AddDetailPage extends StatelessWidget {
                           final currentDate = DateTime.now();
                           final formattedCurrentDate =
                               DateFormat('yyyy-MM-dd').format(currentDate);
-                          // DateTime? selectedDate =
-                          //     AppointmentDateProvider().getDate();
+                          DateTime? selectedDate =
+                              AppointmentDateProvider().getDate();
                           AddDetailModel user = AddDetailModel(
                               date: formattedCurrentDate,
                               endTime: endTimeController.text,

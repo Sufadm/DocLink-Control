@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
+import 'package:doclink_control/presentation/screens/message/widget/textform_message_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../models/chat_moddel.dart';
-import '../../../../service/chat_service.dart';
-import '../../../../shared/const/const.dart';
+import '../../../models/chat_moddel.dart';
+import '../../../service/chat_service.dart';
+import '../../../shared/const/const.dart';
 
 class ChattingScreen extends StatelessWidget {
   final chatController = TextEditingController();
@@ -81,7 +82,7 @@ class ChattingScreen extends StatelessWidget {
                     );
 
                     return ListView.builder(
-                      reverse: true,
+                      reverse: false,
                       itemCount: groupedMessages.length,
                       itemBuilder: (context, index) {
                         final date = groupedMessages.keys.elementAt(index);
@@ -224,25 +225,8 @@ class ChattingScreen extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(width: 20),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextField(
-                        controller: chatController,
-                        style: const TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          hintText: 'Enter a Message',
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          hintStyle: GoogleFonts.outfit(color: kWhiteColor),
-                        ),
-                      ),
-                    ),
-                  ),
+                  //?enter a message widget-----------------------------------
+                  TextFormMesasge(chatController: chatController),
                   IconButton(
                     onPressed: () {
                       if (chatController.text.trim().isNotEmpty) {
@@ -260,21 +244,6 @@ class ChattingScreen extends StatelessWidget {
                       color: kWhiteColor,
                     ),
                   ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //      if (chatController.text.trim().isNotEmpty) {
-
-                  //      }
-                  //     ChatService().sendTextMessage(
-                  //         currentuserid, userid, chatController.text.trim());
-                  //     chatController.clear();
-                  //   },
-                  //   icon: const Icon(
-                  //     Icons.send,
-                  //     size: 30,
-                  //     color: kWhiteColor,
-                  //   ),
-                  // ),
                 ],
               ),
             ),
