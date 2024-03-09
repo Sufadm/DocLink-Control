@@ -234,7 +234,7 @@ class VerificationScreen extends StatelessWidget {
                                       }));
                                     });
 
-                                    // ignore: use_build_context_synchronously
+                                    //ignore: use_build_context_synchronously
                                   }
                                   registerModel.loading = false;
                                 } catch (error) {

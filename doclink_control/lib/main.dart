@@ -3,6 +3,7 @@ import 'package:doclink_control/presentation/screens/notification_details/notifi
 import 'package:doclink_control/presentation/screens/splashscreen/splashscreen.dart';
 import 'package:doclink_control/provider/auth_provider/auth_provider.dart';
 import 'package:doclink_control/service/auth.dart';
+import 'package:doclink_control/service/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,9 +13,12 @@ import 'firebase_options.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseApi().initNotfications();
+
   runApp(
     MultiProvider(
       providers: [

@@ -14,7 +14,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+
+  with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -93,8 +94,6 @@ class Wrapper extends StatelessWidget {
       return LoginScreen();
     } else {
       return const HomeScreen();
-
-      //return either home or authenticate widget
     }
   }
 }

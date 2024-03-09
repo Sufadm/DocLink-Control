@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreAddDetailService {
   final CollectionReference adddetailCollection =
-      FirebaseFirestore.instance.collection('adddetails');
+  FirebaseFirestore.instance.collection('adddetails');
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllDetailsStream(
       String doctorId) {
     return adddetailCollection
